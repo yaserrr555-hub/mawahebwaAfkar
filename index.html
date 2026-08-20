@@ -22,6 +22,31 @@ body{font-family:"Amiri", serif;color:#0f172a;direction:rtl;display:flex;flex-di
     position: relative;
 }
 
+/* زر إدارة الكتاب العلوي الأنيق */
+.admin-top-bar {
+    width: 95vw;
+    max-width: 880px;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    z-index: 100;
+}
+.admin-trigger-btn {
+    background: rgba(30, 58, 138, 0.85);
+    color: #fbbf24;
+    border: 1px solid #d4af37;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.2s;
+}
+.admin-trigger-btn:hover { background: #1e3a8a; color: #fff; }
+
 .page-wrapper {
     width: 100%;
     background: #fff;
@@ -215,6 +240,40 @@ ol li { margin-bottom: 12px; }
 .nav-btn:hover { background: #2563eb; }
 .nav-btn.home { background: #f59e0b; color: #0f172a; }
 .page-indicator { color: #fbbf24; font-weight: bold; display: flex; align-items: center; font-size: 14.5px; }
+
+/* Modal نافذة تسجيل الدخول للإدارة والتحكم */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+.modal-box {
+    background: #fffdf9;
+    border: 3px solid #b8860b;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 420px;
+    padding: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    text-align: right;
+}
+.modal-box h3 { color: #1e3a8a; margin-top: 0; border-bottom: 2px solid #d4af37; padding-bottom: 8px; }
+.modal-input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 14px 0;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+.modal-input:focus { border-color: #1e3a8a; }
 </style>
 
 <!-- مكتبات فايربيس السحابية -->
@@ -223,6 +282,11 @@ ol li { margin-bottom: 12px; }
 <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js" type="module"></script>
 </head>
 <body>
+
+<!-- زر إدارة الكتاب في أعلى الصفحة -->
+<div class="admin-top-bar">
+    <button class="admin-trigger-btn" onclick="openAdminLoginModal()">⚙️ إدارة الكتاب</button>
+</div>
 
 <div class="book-container">
 
@@ -411,7 +475,7 @@ ol li { margin-bottom: 12px; }
             <p class="small" style="font-size:13px;">وفي حياته، كان له رفقاء درب وأصدقاء أوفياء شاركوه مراحل مختلفة من حياته:</p>
             <div class="grid3">
                 <span>النسيب والأخ محمد بن صالح المزيني</span>
-                <span>فهد محمد الكريديس (ابن العم)</span>
+                <span>فهد الكريديس (ابن العم)</span>
                 <span>حسين صالح الخربوش</span>
                 <span>عبدالعزيز الفايز</span>
                 <span>سويلم الفريدي</span>
@@ -422,7 +486,7 @@ ol li { margin-bottom: 12px; }
                 <span>محمد الخليفي إبن العمة</span>
                 <span>أنس الخربوش</span>
                 <span>يوسف الخربوش</span>
-                <span>عبدالعزيز عبدالله الهويمل</span>
+                <span>عبدالعزيز الهويمل</span>
                 <span>خالد صالح الخربوش</span>
                 <span>خالد عبدالله الخربوش</span>
                 <span>عبدالسلام الخربوش</span>
@@ -433,10 +497,10 @@ ol li { margin-bottom: 12px; }
                 <span>سطام الخربوش</span>
                 <span>عادل الخربوش</span>
                 <span>خالد العجمي</span>
-                <span>حمد عبدالله الهويمل</span>
+                <span>حمد الهويمل</span>
                 <span>عبدالله الخربوش (أبو طارق)</span>
-                <span>عبدالله عبدالرحمن الهويمل</span>
-                <span>خالد عبدالرحمن الهويمل رحمه الله</span>
+                <span>عبدالله الهويمل</span>
+                <span>خالد الهويمل رحمه الله</span>
             </div>
             <p class="small" style="font-size:12px;margin-top:8px;color:#475569;text-align:center;">وهناك أناس كثر ممن رافقوا درب فقيدنا الغالي ولم يسعفنا الحصر لذكرهم، فلكل صديقٍ وفّيٍّ حفظ عهده ولم ينساها يوماً، جزاه الله عن وفائه خير الجزاء.</p>
         </div>
@@ -451,7 +515,7 @@ ol li { margin-bottom: 12px; }
             <h2 class="section">محمد السيد نور الدين .. وفاءٌ يتجدد ويسبق الجميع</h2>
             <p>ومن المواقف الإنسانية التي حُفرت في الذاكرة، ما كان من الأخ الفاضل <strong>محمد السيد نور الدين</strong> المكنى بـ <strong>أبو عادل</strong>، وهو من مصر الحبيبة.</p>
             <p>عُرف المعلم المربي الأستاذ <strong>فهد الكريديس (أبو علي)</strong> رحمه اللّٰه، مع <strong>أبي عادل</strong> بطيب الصحبة وصدق الإخاء؛ إذ ضرب أبو عادل نموذجًا نادرًا في الوفاء والوقوف الصادق خلال فترة مرض فقيدنا الغالي أبي علي، فكان ينوب ويسعى بالخدمة والمساندة بكل محبة ورضاء.</p>
-            <p>وما يثير الإجلال أن <strong>أبا عادل</strong> ما زال حريصًا على تقديم الخير وأوجه البر لأبي علي وكأن أبا علي ما زال حيًّا بيننا؛ فهو حتى يومنا هذا يتفقد الأسرة ويقوم على خدمة الوالدة الكريمة ورعايتها بكل إخلاص، مجسّدًا معنى الأخوة الحقيقية التي لا تقطعها الأيام ولا يغيبها الرحيل. فجزاه اللّٰه عنا وعن فقيدنا خير الجزاء.</p>
+            <p>وما يثير الإجلال أن <strong>أبا عادل</strong> ما زال حريصًا على تقديم الخير وأوجه البر لأبي علي وكأن أبو علي ما زال حيًّا بيننا؛ فهو حتى يومنا هذا يتفقد الأسرة ويقوم على خدمة الوالدة الكريمة ورعايتها بكل إخلاص، مجسّدًا معنى الأخوة الحقيقية التي لا تقطعها الأيام ولا يغيبها الرحيل. فجزاه اللّٰه عنا وعن فقيدنا خير الجزاء.</p>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">12</span></div>
     </div>
@@ -766,7 +830,7 @@ ol li { margin-bottom: 12px; }
             </div>
             <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px;flex-wrap:wrap;">
                 <select id="tributeType" style="padding:6px 10px;border-radius:6px;border:1.5px solid #cbd5e1;font-family:inherit;font-size:13.5px;">
-                    <option value="public">🌐 مشاركة عامة (تظهر لجميع الزوار)</option>
+                    <option value="public">🌐 مشاركة عامة (تخضع لمراجعة الإدارة)</option>
                     <option value="private">🔒 حفظ سري (خاص بي وحدي)</option>
                 </select>
                 <button class="action-btn" onclick="saveTribute()" style="margin:0; padding:6px 18px; font-size:14.5px;">اِجعل أثر فهد باقياً 🤍</button>
@@ -811,10 +875,39 @@ ol li { margin-bottom: 12px; }
     <button class="nav-btn" onclick="nextPage()">التالي ◀</button>
 </div>
 
-<!-- مكتبات فايربيس واتصال المزامنة السحابية (مباشر بدون تعقيد المصادقة) -->
+<!-- نافذة تسجيل الدخول للإدارة -->
+<div class="modal-overlay" id="adminLoginModal">
+    <div class="modal-box">
+        <h3>🔐 تسجيل دخول الإدارة</h3>
+        <p style="font-size:13px; color:#64748b; margin-bottom:12px;">أدخل بيانات المسؤول للوصول إلى لوحة مراجعة التعليقات:</p>
+        <label style="font-size:13.5px; font-weight:bold;">اسم المستخدم:</label>
+        <input type="text" id="adminUser" class="modal-input" placeholder="اسم المستخدم">
+        <label style="font-size:13.5px; font-weight:bold;">كلمة المرور:</label>
+        <input type="password" id="adminPass" class="modal-input" placeholder="كلمة المرور">
+        <div id="loginErrorMsg" style="color:#dc2626; font-size:12.5px; margin-bottom:10px; font-weight:bold; min-height:18px;"></div>
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+            <button onclick="closeAdminLoginModal()" style="background:#cbd5e1; border:none; padding:7px 16px; border-radius:6px; cursor:pointer; font-family:inherit; font-size:13.5px;">إلغاء</button>
+            <button onclick="verifyAdminLogin()" style="background:#1e3a8a; color:#fff; border:none; padding:7px 20px; border-radius:6px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13.5px;">دخول</button>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة لوحة تحكم الإدارة (مراجعة التعليقات) -->
+<div class="modal-overlay" id="adminDashboardModal">
+    <div class="modal-box" style="max-width:650px; max-height:85vh; display:flex; flex-direction:column;">
+        <h3>🛡️ لوحة تحكم إدارة التعليقات</h3>
+        <p style="font-size:13px; color:#16a34a; margin-bottom:10px;">أهلاً بك يا سعادة المهندس ياسر الكريديس. يمكنك أدناه الموافقة على التعليقات الواردة أو رفضها:</p>
+        <div id="adminPendingList" style="flex:1; overflow-y:auto; border:1px solid #cbd5e1; border-radius:8px; padding:10px; background:#f8fafc; max-height:50vh; margin-bottom:12px;"></div>
+        <div style="display:flex; justify-content:flex-end;">
+            <button onclick="closeAdminDashboard()" style="background:#1e3a8a; color:#fff; border:none; padding:8px 22px; border-radius:6px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13.5px;">إغلاق لوحة التحكم</button>
+        </div>
+    </div>
+</div>
+
+<!-- مكتبات فايربيس واتصال المزامنة السحابية -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBlUnoiPYhUtChWPy9ixUgWZJNwEpUsMPc",
@@ -829,7 +922,6 @@ const appId = 'fahad-book-app';
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// تهيئة مباشرة للعدادات والمزامنة وحفظ الإجابات بدون خطأ 400
 document.addEventListener("DOMContentLoaded", async () => {
     let deviceId = localStorage.getItem('fahad_device_id');
     if (!deviceId) {
@@ -866,7 +958,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
 
-        // المتواجدون الآن
         const presenceRef = doc(db, 'artifacts', appId, 'public', 'data', 'presence', deviceId);
         await setDoc(presenceRef, { lastSeen: new Date().toISOString() });
         setInterval(async () => {
@@ -891,7 +982,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadAllSavedAnswers();
 });
 
-// دالة زيادة عداد المنجزين فور الوصول للصفحة 30
 window.markBookAsCompleted = async function() {
     let deviceId = localStorage.getItem('fahad_device_id');
     let completedKey = 'fahad_book_completed_' + deviceId;
@@ -953,17 +1043,18 @@ window.saveTributeToCloud = async function(text, type) {
             await addDoc(tributesCol, {
                 text: text,
                 date: new Date().toLocaleDateString('ar-SA'),
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
+                approved: false // يحتاج موافقة المالك أولاً
             });
             if(msg) {
                 msg.style.color = '#16a34a';
-                msg.innerText = "✨ تم نشر أثرك العام بنجاح لجميع الزوار!";
+                msg.innerText = "✨ تم إرسال مشاركتك بنجاح وهي الآن قيد المراجعة لدى إدارة الكتاب.";
             }
             syncCloudTributes();
         } catch(e) {
             if(msg) {
                 msg.style.color = '#dc2626';
-                msg.innerText = "حدث خطأ أثناء النشر، حاول مجدداً.";
+                msg.innerText = "حدث خطأ أثناء الإرسال، حاول مجدداً.";
             }
         }
     } else {
@@ -982,13 +1073,34 @@ window.syncCloudTributes = function() {
     try {
         const tributesCol = collection(db, 'artifacts', appId, 'public', 'data', 'community_tributes');
         onSnapshot(tributesCol, (snapshot) => {
-            window.cloudPublicTributes = [];
+            window.allCloudTributes = [];
             snapshot.forEach(docSnap => {
-                window.cloudPublicTributes.push(docSnap.data());
+                let data = docSnap.data();
+                window.allCloudTributes.push({ id: docSnap.id, ...data });
             });
-            window.cloudPublicTributes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            window.allCloudTributes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             loadTributes();
+            if(window.isAdminLoggedIn) {
+                renderAdminPendingList();
+            }
         });
+    } catch(e) {}
+};
+
+// دوال إدارة التحكم والقبول والرفض
+window.approveTribute = async function(id) {
+    try {
+        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'community_tributes', id);
+        await updateDoc(docRef, { approved: true });
+        syncCloudTributes();
+    } catch(e) {}
+};
+
+window.deleteTribute = async function(id) {
+    try {
+        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'community_tributes', id);
+        await deleteDoc(docRef);
+        syncCloudTributes();
     } catch(e) {}
 };
 </script>
@@ -1136,11 +1248,14 @@ function loadTributes() {
     if (!list) return;
     list.innerHTML = "";
     
-    let publicTributes = window.cloudPublicTributes || [];
+    // عرض التعليقات المعتمدة فقط للعامة
+    let allCloud = window.allCloudTributes || [];
+    let publicApproved = allCloud.filter(t => t.approved === true);
+    
     let privateTributes = JSON.parse(localStorage.getItem('fahad_book_private_tributes') || '[]');
     
     let allTributes = [
-        ...publicTributes.map(t => ({...t, badge: '🌐 عام'})),
+        ...publicApproved.map(t => ({...t, badge: '🌐 عام'})),
         ...privateTributes.map(t => ({...t, badge: '🔒 سري'}))
     ];
 
@@ -1172,6 +1287,91 @@ function loadTributes() {
         p.appendChild(header);
         p.appendChild(body);
         list.appendChild(p);
+    });
+}
+
+// تفاعلات النظام الإداري
+window.isAdminLoggedIn = false;
+
+window.openAdminLoginModal = function() {
+    document.getElementById('adminUser').value = "";
+    document.getElementById('adminPass').value = "";
+    document.getElementById('loginErrorMsg').innerText = "";
+    document.getElementById('adminLoginModal').style.display = 'flex';
+};
+
+window.closeAdminLoginModal = function() {
+    document.getElementById('adminLoginModal').style.display = 'none';
+};
+
+window.verifyAdminLogin = function() {
+    let u = document.getElementById('adminUser').value.trim();
+    let p = document.getElementById('adminPass').value.trim();
+    let err = document.getElementById('loginErrorMsg');
+
+    if (u === "ORGANO" && p === "Or059059") {
+        window.isAdminLoggedIn = true;
+        closeAdminLoginModal();
+        openAdminDashboard();
+    } else {
+        err.innerText = "⚠️ خطأ في اسم المستخدم أو كلمة المرور! هذه الصفحة خاصة تحت إدارة وإشراف (سعادة المهندس ياسر الكريديس).";
+    }
+};
+
+window.openAdminDashboard = function() {
+    document.getElementById('adminDashboardModal').style.display = 'flex';
+    renderAdminPendingList();
+};
+
+window.closeAdminDashboard = function() {
+    document.getElementById('adminDashboardModal').style.display = 'none';
+};
+
+function renderAdminPendingList() {
+    let container = document.getElementById('adminPendingList');
+    if(!container) return;
+    container.innerHTML = "";
+
+    let allCloud = window.allCloudTributes || [];
+    let pendingList = allCloud.filter(t => t.approved !== true);
+
+    if (pendingList.length === 0) {
+        container.innerHTML = "<div style='text-align:center; color:#64748b; padding:20px;'>لا توجد تعليقات جديدة تنتظر الموافقة حالياً.</div>";
+        return;
+    }
+
+    pendingList.forEach(t => {
+        let box = document.createElement('div');
+        box.style.cssText = "background:#fff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; margin-bottom:10px;";
+        
+        let info = document.createElement('div');
+        info.style.cssText = "font-size:11.5px; color:#64748b; margin-bottom:4px;";
+        info.innerText = `التاريخ: ${t.date || ''}`;
+
+        let txt = document.createElement('div');
+        txt.style.cssText = "font-size:14px; color:#1e293b; margin-bottom:10px; line-height:1.6;";
+        txt.textContent = t.text;
+
+        let actions = document.createElement('div');
+        actions.style.cssText = "display:flex; gap:8px;";
+
+        let approveBtn = document.createElement('button');
+        approveBtn.style.cssText = "background:#16a34a; color:#fff; border:none; padding:5px 14px; border-radius:4px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13px;";
+        approveBtn.innerText = "✅ موافقة ونشر";
+        approveBtn.onclick = () => window.approveTribute(t.id);
+
+        let rejectBtn = document.createElement('button');
+        rejectBtn.style.cssText = "background:#dc2626; color:#fff; border:none; padding:5px 14px; border-radius:4px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13px;";
+        rejectBtn.innerText = "❌ رفض وحذف";
+        rejectBtn.onclick = () => window.deleteTribute(t.id);
+
+        actions.appendChild(approveBtn);
+        actions.appendChild(rejectBtn);
+
+        box.appendChild(info);
+        box.appendChild(txt);
+        box.appendChild(actions);
+        container.appendChild(box);
     });
 }
 
