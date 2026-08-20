@@ -239,7 +239,7 @@ ol li { margin-bottom: 8px; }
 .nav-btn.home { background: #f59e0b; color: #0f172a; }
 .page-indicator { color: #fbbf24; font-weight: bold; display: flex; align-items: center; font-size: 14.5px; }
 
-/* Modal نافذة تسجيل الدخول للإدارة والتحكم */
+/* Modal نافذة تسجيل الدخول الآمن للإدارة */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -654,7 +654,7 @@ ol li { margin-bottom: 8px; }
             <div style="background:#fffdf0; border:1px solid #d4af37; border-radius:8px; padding:10px 12px; margin-top:10px;">
                 <p style="font-size:13.5px; line-height:1.7; margin:0; text-align:justify; color:#1e3a8a;">
                     «ولأن الشغف بالعلم لا حدود له، فقد خاض فقيدنا الغالي الأستاذ فهد رحمه الله ما يقارب مئتي (200) دورة تدريبية حضرها وتفاعل معها خلال مسيرته الحافلة. وللأسف، لم نتمكن من حصر وتوثيق سوى سبعين (70) دورة فقط من بين أروقة أوراقه ومستنداته.<br><br>
-                    ولم تقتصر مسيرته على الحضور وتلقي المعرفة فحسب، بل امتدت لتقديم العديد من الدورات والبرامج التربوية والفكرية المتميزة. وفي ظل شغفه الدائم بالتطوير، كانت له علاقات وطيدة وممتدة مع كبار المفكرين والمدربين الأعلام، أمثال: <strong>الدكتور ميسره الطاهر</strong>، و<strong>الدكتور رشاد فقيه</strong>، الدكتور <strong>خالد المنيف</strong>؛ حيث كان يحضر دوراتهم بكثافة، مستلهمًا من فكرهم، ليقوم لاحقاً بتطوير برامجه التدريبية الخاصة وتقديمها إما بحضورهم الكريم أو متخذًا من طروحاتهم مرجعاً أساسياً لإثراء وتأصيل دوراته».
+                    ولم تقتصر مسيرته على الحضور وتلقي المعرفة فحسب، بل امتدت لتقديم العديد من الدورات والبرامج التربوية والفكرية المتميزة. وفي ظل شغفه الدائم بالتطوير، كانت له علاقات وطيدة وممتدة مع كبار المفكرين والمدربين الأعلام، أمثال: <strong>الدكتور ميسره الطاهر</strong>، و<strong>الدكتور رشاد فقيه</strong>، والدكتور <strong>خالد المنيف</strong>؛ حيث كان يحضر دوراتهم بكثافة، مستلهمًا من فكرهم، ليقوم لاحقاً بتطوير برامجه التدريبية الخاصة وتقديمها إما بحضورهم الكريم أو متخذًا من طروحاتهم مرجعاً أساسياً لإثراء وتأصيل دوراته».
                 </p>
             </div>
         </div>
@@ -894,7 +894,7 @@ ol li { margin-bottom: 8px; }
             <p style="font-size:15px;line-height:1.8;">فطيلة مسيرته، لم يكن شغفه بالتعلّم متوقفًا، فقد خاض ما يقارب مئتي (200) دورة تدريبية، وأصبح معلّمًا ومدربًا معتمدًا من جامعة الملك عبد العزيز.</p>
             <div class="quote" style="margin-top:8px;padding:10px;">
                 <strong class="gold" style="font-size:17px;color:#b8860b;">فهد الكريديس…</strong>
-                <p class="center bold" style="font-size:14px;margin-top:4px;">رجلٌ آمن بالعلم، فتعلّمه، ثم علّمه، وآمن بالإنسان، فترك فيه أثرًا.</p>
+                <p class="center bold" style="font-size:14.5px;margin-top:4px;">رجلٌ آمن بالعلم، فتعلّمه، ثم علّمه، وآمن بالإنسان، فترك فيه أثرًا.</p>
             </div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">30</span></div>
@@ -911,19 +911,19 @@ ol li { margin-bottom: 8px; }
     <button class="nav-btn" onclick="nextPage()">التالي ◀</button>
 </div>
 
-<!-- نافذة تسجيل الدخول للإدارة -->
+<!-- نافذة تسجيل الدخول الآمن للإدارة -->
 <div class="modal-overlay" id="adminLoginModal">
     <div class="modal-box">
-        <h3>🔐 تسجيل دخول الإدارة</h3>
-        <p style="font-size:13px; color:#64748b; margin-bottom:12px;">أدخل بيانات المسؤول للوصول إلى لوحة مراجعة التعليقات:</p>
-        <label style="font-size:13.5px; font-weight:bold;">اسم المستخدم:</label>
-        <input type="text" id="adminUser" class="modal-input" placeholder="اسم المستخدم">
+        <h3>🔐 تسجيل دخول الإدارة الآمن</h3>
+        <p style="font-size:13px; color:#64748b; margin-bottom:12px;">أدخل بريدك الإلكتروني وكلمة المرور الخاصة بك (المسجلة في Firebase Authentication):</p>
+        <label style="font-size:13.5px; font-weight:bold;">البريد الإلكتروني:</label>
+        <input type="email" id="adminEmail" class="modal-input" placeholder="name@example.com">
         <label style="font-size:13.5px; font-weight:bold;">كلمة المرور:</label>
-        <input type="password" id="adminPass" class="modal-input" placeholder="كلمة المرور">
+        <input type="password" id="adminPassword" class="modal-input" placeholder="كلمة المرور السرية">
         <div id="loginErrorMsg" style="color:#dc2626; font-size:12.5px; margin-bottom:10px; font-weight:bold; min-height:18px;"></div>
         <div style="display:flex; gap:10px; justify-content:flex-end;">
             <button onclick="closeAdminLoginModal()" style="background:#cbd5e1; border:none; padding:7px 16px; border-radius:6px; cursor:pointer; font-family:inherit; font-size:13.5px;">إلغاء</button>
-            <button onclick="verifyAdminLogin()" style="background:#1e3a8a; color:#fff; border:none; padding:7px 20px; border-radius:6px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13.5px;">دخول</button>
+            <button onclick="verifyAdminLogin()" style="background:#1e3a8a; color:#fff; border:none; padding:7px 20px; border-radius:6px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13.5px;">دخول آمن</button>
         </div>
     </div>
 </div>
@@ -932,17 +932,19 @@ ol li { margin-bottom: 8px; }
 <div class="modal-overlay" id="adminDashboardModal">
     <div class="modal-box" style="max-width:650px; max-height:85vh; display:flex; flex-direction:column;">
         <h3>🛡️ لوحة تحكم إدارة التعليقات</h3>
-        <p style="font-size:13px; color:#16a34a; margin-bottom:10px;">أهلاً بك يا سعادة المهندس ياسر الكريديس. يمكنك أدناه الموافقة على التعليقات الواردة أو رفضها:</p>
+        <p style="font-size:13px; color:#16a34a; margin-bottom:10px;">أهلاً بك يا سعادة المهندس ياسر الكريديس. تم تسجيل دخولك بأمان. يمكنك أدناه الموافقة على التعليقات أو رفضها:</p>
         <div id="adminPendingList" style="flex:1; overflow-y:auto; border:1px solid #cbd5e1; border-radius:8px; padding:10px; background:#f8fafc; max-height:50vh; margin-bottom:12px;"></div>
-        <div style="display:flex; justify-content:flex-end;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button onclick="adminLogout()" style="background:#dc2626; color:#fff; border:none; padding:6px 14px; border-radius:6px; cursor:pointer; font-family:inherit; font-size:13px;">تسجيل خروج</button>
             <button onclick="closeAdminDashboard()" style="background:#1e3a8a; color:#fff; border:none; padding:8px 22px; border-radius:6px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13.5px;">إغلاق لوحة التحكم</button>
         </div>
     </div>
 </div>
 
-<!-- مكتبات فايربيس واتصال المزامنة السحابية -->
+<!-- مكتبات فايربيس واتصال الحماية والمزامنة السحابية -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -956,6 +958,7 @@ const firebaseConfig = {
 
 const appId = 'fahad-book-app';
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -1138,6 +1141,112 @@ window.deleteTribute = async function(id) {
         syncCloudTributes();
     } catch(e) {}
 };
+
+// المصادقة الآمنة عبر Firebase Authentication (البريد وكلمة المرور)
+window.isAdminLoggedIn = false;
+
+window.openAdminLoginModal = function() {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.isAdminLoggedIn = true;
+            openAdminDashboard();
+        } else {
+            document.getElementById('adminEmail').value = "";
+            document.getElementById('adminPassword').value = "";
+            document.getElementById('loginErrorMsg').innerText = "";
+            document.getElementById('adminLoginModal').style.display = 'flex';
+        }
+    });
+};
+
+window.closeAdminLoginModal = function() {
+    document.getElementById('adminLoginModal').style.display = 'none';
+};
+
+window.verifyAdminLogin = async function() {
+    let email = document.getElementById('adminEmail').value.trim();
+    let password = document.getElementById('adminPassword').value.trim();
+    let err = document.getElementById('loginErrorMsg');
+
+    if (!email || !password) {
+        err.innerText = "الرجاء إدخال البريد الإلكتروني وكلمة المرور.";
+        return;
+    }
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.isAdminLoggedIn = true;
+        closeAdminLoginModal();
+        openAdminDashboard();
+    } catch (error) {
+        err.innerText = "⚠️ خطأ في البيانات! هذه الصفحة خاصة تحت إدارة وإشراف (سعادة المهندس ياسر الكريديس).";
+    }
+};
+
+window.adminLogout = async function() {
+    try {
+        await signOut(auth);
+        window.isAdminLoggedIn = false;
+        closeAdminDashboard();
+    } catch(e) {}
+};
+
+window.openAdminDashboard = function() {
+    document.getElementById('adminDashboardModal').style.display = 'flex';
+    renderAdminPendingList();
+};
+
+window.closeAdminDashboard = function() {
+    document.getElementById('adminDashboardModal').style.display = 'none';
+};
+
+function renderAdminPendingList() {
+    let container = document.getElementById('adminPendingList');
+    if(!container) return;
+    container.innerHTML = "";
+
+    let allCloud = window.allCloudTributes || [];
+    let pendingList = allCloud.filter(t => t.approved !== true);
+
+    if (pendingList.length === 0) {
+        container.innerHTML = "<div style='text-align:center; color:#64748b; padding:20px;'>لا توجد تعليقات جديدة تنتظر الموافقة حالياً.</div>";
+        return;
+    }
+
+    pendingList.forEach(t => {
+        let box = document.createElement('div');
+        box.style.cssText = "background:#fff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; margin-bottom:10px;";
+        
+        let info = document.createElement('div');
+        info.style.cssText = "font-size:11.5px; color:#64748b; margin-bottom:4px;";
+        info.innerText = `التاريخ: ${t.date || ''}`;
+
+        let txt = document.createElement('div');
+        txt.style.cssText = "font-size:14px; color:#1e293b; margin-bottom:10px; line-height:1.6;";
+        txt.textContent = t.text;
+
+        let actions = document.createElement('div');
+        actions.style.cssText = "display:flex; gap:8px;";
+
+        let approveBtn = document.createElement('button');
+        approveBtn.style.cssText = "background:#16a34a; color:#fff; border:none; padding:5px 14px; border-radius:4px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13px;";
+        approveBtn.innerText = "✅ موافقة ونشر";
+        approveBtn.onclick = () => window.approveTribute(t.id);
+
+        let rejectBtn = document.createElement('button');
+        rejectBtn.style.cssText = "background:#dc2626; color:#fff; border:none; padding:5px 14px; border-radius:4px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13px;";
+        rejectBtn.innerText = "❌ رفض وحذف";
+        rejectBtn.onclick = () => window.deleteTribute(t.id);
+
+        actions.appendChild(approveBtn);
+        actions.appendChild(rejectBtn);
+
+        box.appendChild(info);
+        box.appendChild(txt);
+        box.appendChild(actions);
+        container.appendChild(box);
+    });
+}
 </script>
 
 <script>
@@ -1320,90 +1429,6 @@ function loadTributes() {
         p.appendChild(header);
         p.appendChild(body);
         list.appendChild(p);
-    });
-}
-
-window.isAdminLoggedIn = false;
-
-window.openAdminLoginModal = function() {
-    document.getElementById('adminUser').value = "";
-    document.getElementById('adminPass').value = "";
-    document.getElementById('loginErrorMsg').innerText = "";
-    document.getElementById('adminLoginModal').style.display = 'flex';
-};
-
-window.closeAdminLoginModal = function() {
-    document.getElementById('adminLoginModal').style.display = 'none';
-};
-
-window.verifyAdminLogin = function() {
-    let u = document.getElementById('adminUser').value.trim();
-    let p = document.getElementById('adminPass').value.trim();
-    let err = document.getElementById('loginErrorMsg');
-
-    if (u === "ORGANO" && p === "Or059059") {
-        window.isAdminLoggedIn = true;
-        closeAdminLoginModal();
-        openAdminDashboard();
-    } else {
-        err.innerText = "⚠️ خطأ في اسم المستخدم أو كلمة المرور! هذه الصفحة خاصة تحت إدارة وإشراف (سعادة المهندس ياسر الكريديس).";
-    }
-};
-
-window.openAdminDashboard = function() {
-    document.getElementById('adminDashboardModal').style.display = 'flex';
-    renderAdminPendingList();
-};
-
-window.closeAdminDashboard = function() {
-    document.getElementById('adminDashboardModal').style.display = 'none';
-};
-
-function renderAdminPendingList() {
-    let container = document.getElementById('adminPendingList');
-    if(!container) return;
-    container.innerHTML = "";
-
-    let allCloud = window.allCloudTributes || [];
-    let pendingList = allCloud.filter(t => t.approved !== true);
-
-    if (pendingList.length === 0) {
-        container.innerHTML = "<div style='text-align:center; color:#64748b; padding:20px;'>لا توجد تعليقات جديدة تنتظر الموافقة حالياً.</div>";
-        return;
-    }
-
-    pendingList.forEach(t => {
-        let box = document.createElement('div');
-        box.style.cssText = "background:#fff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; margin-bottom:10px;";
-        
-        let info = document.createElement('div');
-        info.style.cssText = "font-size:11.5px; color:#64748b; margin-bottom:4px;";
-        info.innerText = `التاريخ: ${t.date || ''}`;
-
-        let txt = document.createElement('div');
-        txt.style.cssText = "font-size:14px; color:#1e293b; margin-bottom:10px; line-height:1.6;";
-        txt.textContent = t.text;
-
-        let actions = document.createElement('div');
-        actions.style.cssText = "display:flex; gap:8px;";
-
-        let approveBtn = document.createElement('button');
-        approveBtn.style.cssText = "background:#16a34a; color:#fff; border:none; padding:5px 14px; border-radius:4px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13px;";
-        approveBtn.innerText = "✅ موافقة ونشر";
-        approveBtn.onclick = () => window.approveTribute(t.id);
-
-        let rejectBtn = document.createElement('button');
-        rejectBtn.style.cssText = "background:#dc2626; color:#fff; border:none; padding:5px 14px; border-radius:4px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13px;";
-        rejectBtn.innerText = "❌ رفض وحذف";
-        rejectBtn.onclick = () => window.deleteTribute(t.id);
-
-        actions.appendChild(approveBtn);
-        actions.appendChild(rejectBtn);
-
-        box.appendChild(info);
-        box.appendChild(txt);
-        box.appendChild(actions);
-        container.appendChild(box);
     });
 }
 
