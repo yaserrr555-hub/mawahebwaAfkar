@@ -411,7 +411,7 @@ ol li { margin-bottom: 12px; }
             <p class="small" style="font-size:13px;">وفي حياته، كان له رفقاء درب وأصدقاء أوفياء شاركوه مراحل مختلفة من حياته:</p>
             <div class="grid3">
                 <span>النسيب والأخ محمد بن صالح المزيني</span>
-                <span>فهد محمد الكريديس (ابن العم)</span>
+                <span>فهد الكريديس (ابن العم)</span>
                 <span>حسين صالح الخربوش</span>
                 <span>عبدالعزيز الفايز</span>
                 <span>سويلم الفريدي</span>
@@ -422,7 +422,7 @@ ol li { margin-bottom: 12px; }
                 <span>محمد الخليفي إبن العمة</span>
                 <span>أنس الخربوش</span>
                 <span>يوسف الخربوش</span>
-                <span>عبدالعزيز عبدالله الهويمل</span>
+                <span>عبدالعزيز الهويمل</span>
                 <span>خالد صالح الخربوش</span>
                 <span>خالد عبدالله الخربوش</span>
                 <span>عبدالسلام الخربوش</span>
@@ -433,10 +433,10 @@ ol li { margin-bottom: 12px; }
                 <span>سطام الخربوش</span>
                 <span>عادل الخربوش</span>
                 <span>خالد العجمي</span>
-                <span>حمد عبدالله الهويمل</span>
+                <span>حمد الهويمل</span>
                 <span>عبدالله الخربوش (أبو طارق)</span>
-                <span>عبدالله عبدالرحمن الهويمل</span>
-                <span>خالد عبدالرحمن الهويمل رحمه الله</span>
+                <span>عبدالله الهويمل</span>
+                <span>خالد الهويمل رحمه الله</span>
             </div>
             <p class="small" style="font-size:12px;margin-top:8px;color:#475569;text-align:center;">وهناك أناس كثر ممن رافقوا درب فقيدنا الغالي ولم يسعفنا الحصر لذكرهم، فلكل صديقٍ وفّيٍّ حفظ عهده ولم ينساها يوماً، جزاه الله عن وفائه خير الجزاء.</p>
         </div>
@@ -811,11 +811,10 @@ ol li { margin-bottom: 12px; }
     <button class="nav-btn" onclick="nextPage()">التالي ◀</button>
 </div>
 
-
+<!-- مكتبات فايربيس واتصال المزامنة السحابية (مباشر بدون تعقيد المصادقة) -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBlUnoiPYhUtChWPy9ixUgWZJNwEpUsMPc",
@@ -826,37 +825,18 @@ const firebaseConfig = {
     appId: "1:1078443325466:web:708d1fbf60bd48a1d339a3"
 };
 
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'fahad-book-app';
-
+const appId = 'fahad-book-app';
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getFirestore(app);
 
-let currentUser = null;
-
-async function initFirebase() {
-    try {
-        await signInAnonymously(auth);
-    } catch(e) {}
-}
-initFirebase();
-
-onAuthStateChanged(auth, (user) => {
-    if(!user) return;
-    currentUser = user;
-    
-    let localDeviceId = localStorage.getItem('fahad_device_id');
-    if (!localDeviceId) {
-        localDeviceId = 'DEV_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('fahad_device_id', localDeviceId);
+// تهيئة مباشرة للعدادات والمزامنة وحفظ الإجابات بدون خطأ 400
+document.addEventListener("DOMContentLoaded", async () => {
+    let deviceId = localStorage.getItem('fahad_device_id');
+    if (!deviceId) {
+        deviceId = 'DEV_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('fahad_device_id', deviceId);
     }
-    
-    trackVisitorsAndHeartbeat(localDeviceId);
-    syncCloudTributes();
-    syncCloudAnswers(localDeviceId);
-});
 
-async function trackVisitorsAndHeartbeat(deviceId) {
     try {
         const statsRef = doc(db, 'artifacts', appId, 'public', 'data', 'stats', 'visitors_summary');
         const userVisitRef = doc(db, 'artifacts', appId, 'public', 'data', 'unique_devices', deviceId);
@@ -877,16 +857,21 @@ async function trackVisitorsAndHeartbeat(deviceId) {
         onSnapshot(statsRef, (docSnap) => {
             if(docSnap.exists()){
                 let data = docSnap.data();
-                document.getElementById('liveVisitors').innerText = data.totalVisitors || 1;
-                document.getElementById('liveCompleted').innerText = data.completedVisitors || 0;
+                let vEl = document.getElementById('liveVisitors');
+                let cEl = document.getElementById('liveCompleted');
+                if(vEl) vEl.innerText = data.totalVisitors || 1;
+                if(cEl) cEl.innerText = data.completedVisitors || 0;
+            } else {
+                setDoc(statsRef, { totalVisitors: 1, completedVisitors: 0 }, { merge: true });
             }
         });
 
+        // المتواجدون الآن
         const presenceRef = doc(db, 'artifacts', appId, 'public', 'data', 'presence', deviceId);
         await setDoc(presenceRef, { lastSeen: new Date().toISOString() });
         setInterval(async () => {
             try { await setDoc(presenceRef, { lastSeen: new Date().toISOString() }, {merge:true}); } catch(e){}
-        }, 15000);
+        }, 10000);
 
         const presenceCol = collection(db, 'artifacts', appId, 'public', 'data', 'presence');
         onSnapshot(presenceCol, (snapshot) => {
@@ -894,29 +879,33 @@ async function trackVisitorsAndHeartbeat(deviceId) {
             const now = new Date();
             snapshot.forEach(d => {
                 let last = new Date(d.data().lastSeen);
-                if((now - last) < 45000) activeCount++;
+                if((now - last) < 40000) activeCount++;
             });
-            document.getElementById('liveOnline').innerText = Math.max(1, activeCount);
+            let oEl = document.getElementById('liveOnline');
+            if(oEl) oEl.innerText = Math.max(1, activeCount);
         });
-    } catch(e) {}
-}
 
-// دالة محسنة ومضمونة لتسجيل وتحديث عداد المنجزين فور الوصول للصفحة 30
+    } catch(err) {}
+
+    syncCloudTributes();
+    loadAllSavedAnswers();
+});
+
+// دالة زيادة عداد المنجزين فور الوصول للصفحة 30
 window.markBookAsCompleted = async function() {
-    if(!currentUser) return;
     let deviceId = localStorage.getItem('fahad_device_id');
     let completedKey = 'fahad_book_completed_' + deviceId;
-    
-    // نسمح بالتحديث السحابي المباشر لضمان عمل العداد بدقة
     if(!localStorage.getItem(completedKey)) {
         localStorage.setItem(completedKey, 'true');
         try {
             const statsRef = doc(db, 'artifacts', appId, 'public', 'data', 'stats', 'visitors_summary');
             const statsSnap = await getDoc(statsRef);
             if(statsSnap.exists()) {
-                let currentCompleted = statsSnap.data().completedVisitors || 0;
-                let currentTotal = statsSnap.data().totalVisitors || 1;
-                await setDoc(statsRef, { totalVisitors: currentTotal, completedVisitors: currentCompleted + 1 }, { merge: true });
+                let data = statsSnap.data();
+                await setDoc(statsRef, { 
+                    totalVisitors: data.totalVisitors || 1, 
+                    completedVisitors: (data.completedVisitors || 0) + 1 
+                }, { merge: true });
             } else {
                 await setDoc(statsRef, { totalVisitors: 1, completedVisitors: 1 }, { merge: true });
             }
@@ -925,30 +914,12 @@ window.markBookAsCompleted = async function() {
 };
 
 window.saveAnswerToCloud = async function(fieldId, value) {
-    if(!currentUser) return;
     let deviceId = localStorage.getItem('fahad_device_id');
     try {
         const userAnswersRef = doc(db, 'artifacts', appId, 'users', deviceId, 'answers', fieldId);
         await setDoc(userAnswersRef, { value: value, updatedAt: new Date().toISOString() }, { merge: true });
     } catch(e){}
 };
-
-function syncCloudAnswers(deviceId) {
-    try {
-        const userAnswersCol = collection(db, 'artifacts', appId, 'users', deviceId, 'answers');
-        onSnapshot(userAnswersCol, (snapshot) => {
-            snapshot.forEach(docSnap => {
-                let id = docSnap.id;
-                let val = docSnap.data().value;
-                let el = document.getElementById(id);
-                if(el && el.value !== val) {
-                    el.value = val;
-                    localStorage.setItem(`fahad_book_ans_${deviceId}_` + id, val);
-                }
-            });
-        });
-    } catch(e){}
-}
 
 const forbiddenWords = [
     "كلب", "حقير", "حيوان", "حمار", "غبي", "غبية", "تافه", "وسخ", "منحط", 
@@ -969,8 +940,10 @@ window.saveTributeToCloud = async function(text, type) {
     let msg = document.getElementById('tributeMsg');
     
     if (containsProfanity(text)) {
-        msg.style.color = '#dc2626';
-        msg.innerText = "⚠️ نعتذر، يحتوي النص على كلمات غير لائقة ولن يتم نشرها احتراماً لمقام فقيدنا الغالي.";
+        if(msg) {
+            msg.style.color = '#dc2626';
+            msg.innerText = "⚠️ نعتذر، يحتوي النص على كلمات غير لائقة ولن يتم نشرها احتراماً لمقام فقيدنا الغالي.";
+        }
         return;
     }
 
@@ -982,19 +955,25 @@ window.saveTributeToCloud = async function(text, type) {
                 date: new Date().toLocaleDateString('ar-SA'),
                 createdAt: new Date().toISOString()
             });
-            msg.style.color = '#16a34a';
-            msg.innerText = "✨ تم نشر أثرك العام بنجاح لجميع الزوار!";
-            if(window.syncCloudTributes) window.syncCloudTributes();
+            if(msg) {
+                msg.style.color = '#16a34a';
+                msg.innerText = "✨ تم نشر أثرك العام بنجاح لجميع الزوار!";
+            }
+            syncCloudTributes();
         } catch(e) {
-            msg.style.color = '#dc2626';
-            msg.innerText = "حدث خطأ أثناء النشر، حاول مجدداً.";
+            if(msg) {
+                msg.style.color = '#dc2626';
+                msg.innerText = "حدث خطأ أثناء النشر، حاول مجدداً.";
+            }
         }
     } else {
         let tributes = JSON.parse(localStorage.getItem('fahad_book_private_tributes') || '[]');
         tributes.unshift({ text: text, date: new Date().toLocaleDateString('ar-SA') });
         localStorage.setItem('fahad_book_private_tributes', JSON.stringify(tributes));
-        msg.style.color = '#2563eb';
-        msg.innerText = "🔒 تم حفظ رسالتك السرية محلياً بنجاح.";
+        if(msg) {
+            msg.style.color = '#2563eb';
+            msg.innerText = "🔒 تم حفظ رسالتك السرية محلياً بنجاح.";
+        }
         loadTributes();
     }
 };
@@ -1032,7 +1011,8 @@ function showPage(page) {
         if (currentPage === 30 && window.markBookAsCompleted) window.markBookAsCompleted();
     }
 
-    document.getElementById('pageIndicator').innerText = `الصفحة ${currentPage} من 30`;
+    let ind = document.getElementById('pageIndicator');
+    if(ind) ind.innerText = `الصفحة ${currentPage} من 30`;
 }
 
 function nextPage() { if (currentPage < totalPages) showPage(currentPage + 1); }
@@ -1047,7 +1027,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     loadAllSavedAnswers();
-    if(window.syncCloudTributes) window.syncCloudTributes();
     loadTributes();
     setupPointerCanvas();
     setupAutoSave();
@@ -1110,8 +1089,7 @@ function loadAllSavedAnswers() {
 }
 
 window.exportMyAnswers = function() {
-    let deviceId = localStorage.getItem('fahad_device_id');
-    const fields = document.querySelectorAll('textarea, input.interactive-input');
+    let fields = document.querySelectorAll('textarea, input.interactive-input');
     let data = {};
     fields.forEach(f => {
         if (f.id && f.value) data[f.id] = f.value;
@@ -1129,57 +1107,28 @@ window.exportMyAnswers = function() {
     dlAnchorElem.remove();
 };
 
-window.importMyAnswers = function(event) {
-    let file = event.target.files[0];
-    if (!file) return;
-    let deviceId = localStorage.getItem('fahad_device_id');
-    let reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            let data = JSON.parse(e.target.result);
-            for (let id in data) {
-                if (id === 'drawing_canvas_data') {
-                    let canvas = document.getElementById('drawCanvas');
-                    if (canvas) {
-                        let ctx = canvas.getContext('2d');
-                        let img = new Image();
-                        img.onload = () => ctx.drawImage(img, 0, 0);
-                        img.src = data[id];
-                        localStorage.setItem(`fahad_book_canvas_${deviceId}`, data[id]);
-                    }
-                } else {
-                    let el = document.getElementById(id);
-                    if (el) {
-                        el.value = data[id];
-                        localStorage.setItem(`fahad_book_ans_${deviceId}_` + id, data[id]);
-                    }
-                }
-            }
-            alert("📂 تم استرجاع الإجابات بنجاح!");
-        } catch (err) {
-            alert("❌ ملف غير صالح.");
-        }
-    };
-    reader.readAsText(file);
-};
-
 window.saveTribute = function() {
-    let text = document.getElementById('tributeText').value.trim();
-    let type = document.getElementById('tributeType').value;
+    let textElem = document.getElementById('tributeText');
+    let typeElem = document.getElementById('tributeType');
     let msg = document.getElementById('tributeMsg');
 
-    if(!text) {
-        msg.style.color = '#dc2626';
-        msg.innerHTML = "الرجاء كتابة دعاء أو كلمة أولاً.";
+    if(!textElem || !textElem.value.trim()) {
+        if(msg) {
+            msg.style.color = '#dc2626';
+            msg.innerHTML = "الرجاء كتابة دعاء أو كلمة أولاً.";
+        }
         return;
     }
+
+    let text = textElem.value.trim();
+    let type = typeElem ? typeElem.value : 'public';
 
     if(window.saveTributeToCloud) {
         window.saveTributeToCloud(text, type);
     }
     
-    document.getElementById('tributeText').value = "";
-    setTimeout(() => { msg.innerHTML = ""; }, 3500);
+    textElem.value = "";
+    setTimeout(() => { if(msg) msg.innerHTML = ""; }, 3500);
 };
 
 function loadTributes() {
