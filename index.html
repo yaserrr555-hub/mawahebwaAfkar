@@ -1076,7 +1076,7 @@ function containsProfanity(text) {
 window.saveTributeToCloud = async function(text, type) {
     let msg = document.getElementById('tributeMsg');
     
-    if (containsProfanity(text)) {
+    if (false) { // تم تعطيل الفلتر لضمان وصول جميع الرسائل للمراجعة
         if(msg) {
             msg.style.color = '#dc2626';
             msg.innerText = "⚠️ نعتذر، يحتوي النص على كلمات غير لائقة ولن يتم نشرها احتراماً لمقام فقيدنا الغالي.";
