@@ -11,7 +11,6 @@
 html, body { margin:0; padding:0; min-height: 100vh; width: 100%; background:#0f172a; }
 body{font-family:"Amiri", serif;color:#0f172a;direction:rtl;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px 0 70px 0;}
 
-/* الحاوية الرئيسية بتصميم متوازن تماماً على الكمبيوتر والجوال */
 .book-container {
     width: 95vw;
     max-width: 880px;
@@ -22,12 +21,12 @@ body{font-family:"Amiri", serif;color:#0f172a;direction:rtl;display:flex;flex-di
     position: relative;
 }
 
-/* زر إدارة الكتاب العلوي الأنيق */
 .admin-top-bar {
     width: 95vw;
     max-width: 880px;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     margin-bottom: 8px;
     z-index: 100;
 }
@@ -57,7 +56,7 @@ body{font-family:"Amiri", serif;color:#0f172a;direction:rtl;display:flex;flex-di
     display: none;
     flex-direction: column;
 }
-.page-wrapper.active { display: flex; animation: fadeIn 0.25s ease; }
+.page-wrapper.active { display: flex; animation: fadeIn 0.2s ease; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.99); }
@@ -207,7 +206,6 @@ ol li { margin-bottom: 8px; }
     transition: background 0.2s;
 }
 .action-btn:hover { background: #15803d; }
-.action-btn.import { background: #2563eb; }
 
 .nav-bar {
     position: fixed;
@@ -239,7 +237,6 @@ ol li { margin-bottom: 8px; }
 .nav-btn.home { background: #f59e0b; color: #0f172a; }
 .page-indicator { color: #fbbf24; font-weight: bold; display: flex; align-items: center; font-size: 14.5px; }
 
-/* Modal نافذة تسجيل الدخول للإدارة والتحكم */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -255,7 +252,7 @@ ol li { margin-bottom: 8px; }
     border: 3px solid #b8860b;
     border-radius: 12px;
     width: 90%;
-    max-width: 420px;
+    max-width: 480px;
     padding: 24px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.5);
     text-align: right;
@@ -274,14 +271,12 @@ ol li { margin-bottom: 8px; }
 .modal-input:focus { border-color: #1e3a8a; }
 </style>
 
-<!-- مكتبات فايربيس السحابية للعدادات والتعليقات -->
 <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js" type="module"></script>
 <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js" type="module"></script>
 <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js" type="module"></script>
 </head>
 <body>
 
-<!-- زر إدارة الكتاب في أعلى الصفحة -->
 <div class="admin-top-bar">
     <button class="admin-trigger-btn" onclick="openAdminLoginModal()">⚙️ إدارة الكتاب</button>
 </div>
@@ -307,8 +302,8 @@ ol li { margin-bottom: 8px; }
             <h1 class="cover-title">مواهب و أفكار</h1>
             
             <div style="display:flex;gap:12px;margin:15px 0;justify-content:center;flex-wrap:wrap;">
-                <button onclick="goToPage(3)" style="background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:14.5px;">📖 قراءة إرث المعلم الراحل فهد علي الكريديس</button>
-                <button onclick="goToPage(18)" style="background:#16a34a;color:#fff;border:none;padding:10px 20px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:14.5px;">✍️ مقدمة المذكرة الأصلية بقلم المعلم الراحل فهد علي الكريديس رحمه الله</button>
+                <button onclick="goToPage(3)" style="background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:14.5px;">📖 قراءة إرث فهد علي الكريديس</button>
+                <button onclick="goToPage(19)" style="background:#16a34a;color:#fff;border:none;padding:10px 20px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:14.5px;">✍️ مقدمة المذكرة الأصلية بقلم المعلم الراحل فهد علي الكريديس رحمه الله</button>
             </div>
 
             <div class="cover-card">
@@ -317,7 +312,6 @@ ol li { margin-bottom: 8px; }
                 <div class="small" style="color:#e2e8f0;margin-top:4px;font-size:14px;">مجمع الأمير سلطان ببريدة • القسم المتوسط</div>
             </div>
 
-            <!-- العدادات الحقيقية المحدثة -->
             <div style="display:flex;gap:15px;margin-top:16px;flex-wrap:wrap;justify-content:center;">
                 <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(251,191,36,0.3);padding:8px 14px;border-radius:8px;font-size:13px;color:#e2e8f0;">
                     👥 المتواجدون الآن: <strong id="liveOnline" style="color:#4ade80;">1</strong>
@@ -380,22 +374,37 @@ ol li { margin-bottom: 8px; }
     </div>
 </section>
 
-<!-- 5 -->
+<!-- 5: سيرة معلم.. لا تقاس بالسنوات بل بالأثر (الصفحة الأولى) -->
 <section class="page-wrapper" data-page="5">
     <div class="frame">
         <div class="content">
-            <h2 class="section">سيرة معلم… لا تُقاس بالسنوات بل بالأثر</h2>
-            <p>لم يكن المعلم الراحل فهد بن علي الكريديس رحمه الله مجرد معلم عابر، بل كان صاحب أثر واضح في طلابه وزملائه، جمع بين العلم والتطوير المستمر، وحرص على تنمية مهاراته وخبراته طوال مسيرته التعليمية.</p>
-            <p>امتدت مسيرته المباركة في ميدان التعليم والتدريب لأكثر من 25 عاماً، تنقّل خلالها بين المجمعة ومجمع الأمير سلطان ببريدة، حيث تولى رئاسة قسم العلوم، ثم مسك مهام الإشراف في مركز التدريب في مجمع الأمير سلطان، متخصّصاً في برامج التفكير وتطوير مهاراته، وعاملاً باقتدار في مركز الإصلاح الأسري.</p>
-            <p>وقد تشرف طيلة مسيرته بالعمل جنباً إلى جنب مع نخبة من القامات التربوية البارزة والمدراء الأجلاء الذين تركوا أثراً طيباً في مسيرة الصرح التعليمي؛ وفي مقدمتهم <strong>الأستاذ فهد عبدالعزيز الأحمد</strong> (مدير تعليم القصيم السابق ومدير عام مجمع الأمير سلطان)، والأستاذ الفاضل <strong> عبدالله إبراهيم الركيان</strong>، وصولاً إلى مرحلة إصدار هذه المذكرة المباركة بالتنسيق والتوجيه مع قائد المتوسطة الفاضل <strong>الأستاذ فؤاد بن عزيز الصحفي</strong>، لتتكامل جهود هؤلاء الأعلام في بناء جيل واعٍ و مبدع</p>
-            <p>وفي تلك المرحلة داخل مجمع الأمير سلطان ببريدة، برزت نقطة تقاطع علمي وفكري لافتة بينه وبين الإعلامي والباحث في العلوم والفلك <strong>خالد الزعاق</strong>، حيث جمعتهما بيئة تعليمية واحدة واهتمام مشترك بالعلوم الطبيعية ورصد الظواهر الكونية.</p>
+            <h2 class="section">سيرة معلم… لا تُقاس بالسنوات بل بالأثر (١)</h2>
+            <p>لم يكن المعلم الراحل فهد بن علي الكريديس رحمه اللّٰه مجرد معلم عابر، بل كان صاحب أثر واضح في طلابه وزملائه، جمع بين العلم والتطوير المستمر، وحرص على تنمية مهاراته وخبراته طوال مسيرته التعليمية.</p>
+            <p>امتدت مسيرته المباركة في ميدان التعليم والتدريب لأكثر من 25 عامًا، تنقّل خلالها بين المجمعة وبريدة، وكانت من أبرز محطاته تعيينه في مجمع الأمير سلطان ببريدة، حيث أمضى فيه جانبًا مهمًا من مسيرته التعليمية والتربوية.</p>
+            <p>وبعد تعيينه ببضع سنوات، تولّى رئاسة قسم العلوم في المرحلة المتوسطة، إلى جانب تكليفه مشرفًا على مركز التدريب داخل المجمع، متخصصًا في برامج التفكير وتنمية المهارات وتطوير القدرات، كما قام بالإشراف على نادي الحي المقام في مجمع الأمير سلطان خلال الفترة المسائية، فضلًا عن العديد من المهام والتكليفات التي اضطلع بها، مؤديًا أمانتها بكل اقتدار، وحرصًا منه على الإسهام في بناء جيلٍ واعٍ، مبدعٍ، ومسلّح بالعلم والمعرفة والقيم.</p>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">5</span></div>
     </div>
 </section>
 
-<!-- 6 -->
+<!-- 6: سيرة معلم.. لا تقاس بالسنوات بل بالأثر (الصفحة الثانية وتكملة القامات) -->
 <section class="page-wrapper" data-page="6">
+    <div class="frame">
+        <div class="content">
+            <h2 class="section">سيرة معلم… لا تُقاس بالسنوات بل بالأثر (٢)</h2>
+            <p>وقد تشرف طيلة مسيرته بالعمل جنبًا إلى جنب بجميع زملائه والنخبة من القامات التربوية البارزة والمدراء الأجلاء، الذين كان لهم أثر راسخ في مسيرة الصرح التعليمي، وفي مقدمتهم مدراء إدارة التعليم السابقون:<br>
+            <strong style="font-weight: 700;">الأستاذ/ فهد عبدالعزيز الأحمد،</strong><br>
+            و<strong style="font-weight: 700;">الأستاذ/ عبدالله إبراهيم الركيان،</strong><br>
+            وصولًا إلى مرحلة تقاعده واختتام مسيرته التعليمية، تاركًا خلفه أثرًا طيبًا وسيرةً حافلة بالعطاء، وشاهدًا على سنواتٍ من البذل والإخلاص في خدمة التعليم وأبنائه.</p>
+            <p>وقد كان ختام هذه المسيرة محل تقدير ووفاء، حيث تم تكريمه من قبل مجمع الأمير سلطان ببريدة، بقيادة مديره الأستاذ الفاضل/ <strong>فؤاد الصحفي</strong>، تقديرًا لما قدّمه من جهود وما بذله من عطاء خلال سنوات خدمته.</p>
+            <p>وفي تلك المرحلة التي قضاها داخل مجمع الأمير سلطان ببريدة، برزت نقطة تقاطع علمي وفكري لافتة بينه وبين الإعلامي والباحث في العلوم والفلك الدكتور/ <strong>خالد الزعاق</strong>، حيث جمعتهما بيئة تعليمية واحدة، واهتمام مشترك بالعلوم الطبيعية ورصد الظواهر الكونية، في مشهد يعكس الحراك العلمي والفكري الذي تميّزت به تلك المرحلة.</p>
+        </div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">6</span></div>
+    </div>
+</section>
+
+<!-- 7 -->
+<section class="page-wrapper" data-page="7">
     <div class="frame">
         <div class="content">
             <h2 class="section">مؤلفاته وإسهاماته المعرفية</h2>
@@ -406,34 +415,21 @@ ol li { margin-bottom: 8px; }
                <strong>2. نظرية تريز</strong> (في الحلول الإبداعية للمشكلات).<br>
                <strong>3. مجلة العلوم المصورة</strong> (كوسيلة تثقيفية علمية مبسطة).</p>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">6</span></div>
-    </div>
-</section>
-
-<!-- 7 -->
-<section class="page-wrapper" data-page="7">
-    <div class="frame">
-        <div class="content">
-            <h2 class="section">جذور لا تُنسى… وبرٌّ أضاء الحياة</h2>
-            <p>كان خلف هذا المعلم الفاضل والدان كريمان كان لهما أثر عظيم في تكوين شخصيته الطاهرة وجميل خصاله؛ والده المرحوم بإذن الله <strong><span style="font-size: 1.08em;">علي فهد الكريديس</span></strong>، ووالدته الحنونة <strong><span style="font-size: 1.08em;">حصة محمد الخربوش</span></strong> حفظها الله وأمدّ في عمرها.</p>
-            <p>وإن ما نشأت عليه الأسرة كاملة من صلاح وأثر عظيم، ما هو إلا امتداد لتلك التربية الصالحة من هذه الأم العظيمة وزوجها المرحوم علي، اللذين أجمع الجميع على حبهما ومعرفة الناس بهما كأصحاب صلة رحم وتربية طيبة وسيرة عطرة، وهذا ما عُرف عن أسرتهم الكريمة.</p>
-            <p>لقد كان فهد رحمه الله صاحب خلق عالٍ، بشوشاً، وودوداً مع الجميع، ولم تهن عزيمته يوماً؛ فقد حمل أمانة الوقف العظيم الذي أوصاه به والده، فكان لها نِعم الأمين ونِعم الحافظ. لقد استمر يرعاه طيلة حياته وحتى في أقسى لحظات مرضه وتعبه، باذلاً من جهده ومن ماله الخاص أحياناً ليبقى هذا الوقف قائماً ومؤدياً لرسالته، متجردًا من كل حظ نفس، مخلصاً النية لربه، فبقي طاهر الذمة، عظيم الأمانة، نقي السريرة، فيده كانت ممدودة بالخير ومسارعة في مساعدة المساكين والمحتاجين.</p>
-            <div class="quote">
-                <p class="center gold" style="font-size:15px;color:#b8860b;margin:0;">«عاش باراً طائعاً، نقياً تقياً، كريماً باليد والوجه، فترك غرساً طيباً لا يذبل»</p>
-            </div>
-        </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">7</span></div>
     </div>
 </section>
 
-<!-- 8 -->
+<!-- 8: جذور لا تنسى.. وبر أضاء الحياة (مع دمج أمانة الوقف) -->
 <section class="page-wrapper" data-page="8">
     <div class="frame">
         <div class="content">
-            <h2 class="section">صاحب الأثر… والقلب النقي</h2>
-            <p>كان فهد رحمه الله بحرًا من النقاء، عُرف بدينه المتين وخلقه الرفيع، ومحافظته التامة على الصلاة في أوقاتها، فلم يكن يشغله عنها شاغل، حتى في أشد لحظات مرضه وتعبه، كانت الصلوات قرة عينه ورباط روحه.</p>
-            <p>عاش رحيمًا بالناس، لينًا في معاملته، مبتسمًا لا تفارق الابتسامة محياه مهما اشتدت الظروف. كان يسعى في قضاء حوائج المساكين والمحتاجين خفية، يرجو ما عند الله، ولا يبتغي سوى رضاه.</p>
-            <p class="bold gold center" style="font-size:18px;color:#b8860b;margin-top:10px;">رحمك الله يا أبا علي… يا من أودعت في قلوبنا طهر الأخلاق وعظم الأثر.</p>
+            <h2 class="section">جذور لا تُنسى… وبرٌّ أضاء الحياة وأمانة الوقف</h2>
+            <p>كان خلف هذا المعلم الفاضل والدان كريمان كان لهما أثر عظيم في تكوين شخصيته الطاهرة وجميل خصاله؛ والده المرحوم بإذن الله <strong><span style="font-size: 1.08em;">علي فهد الكريديس</span></strong>، ووالدته الحنونة <strong><span style="font-size: 1.08em;">حصة محمد الخربوش</span></strong> حفظها الله وأمدّ في عمرها.</p>
+            <p>وإن ما نشأت عليه الأسرة كاملة من صلاح وأثر عظيم، ما هو إلا امتداد لتلك التربية الصالحة من هذه الأم العظيمة وزوجها المرحوم علي، اللذين أجمع الجميع على حبهما ومعرفة الناس بهما كأصحاب صلة رحم وتربية طيبة وسيرة عطرة، وهذا ما عُرف عن أسرتهم الكريمة.</p>
+            <p>لقد كان فهد رحمه الله صاحب خلق عالٍ، بشوشاً، وودوداً مع الجميع. <strong>ولم تهن عزيمته يوماً؛ فقد حمل أمانة الوقف العظيم الذي أوصاه به والده، فكان لها نِعم الأمين ونِعم الحافظ. لقد استمر يرعاه طيلة حياته وحتى في أقسى لحظات مرضه وتعبه، باذلاً من جهده ومن ماله الخاص أحياناً ليبقى هذا الوقف قائماً ومؤدياً لرسالته، متجردًا من كل حظ نفس، مخلصاً النية لربه، فبقي طاهر الذمة، عظيم الأمانة، نقي السريرة، ويده ممدودة بالخير ومسارعة في مساعدة المساكين والمحتاجين.</strong></p>
+            <div class="quote" style="margin-top:6px; padding:10px 14px;">
+                <p class="center gold" style="font-size:14.5px;color:#b8860b;margin:0;">«عاش باراً طائعاً، نقياً تقياً، كريماً باليد والوجه، فترك غرساً طيباً لا يذبل»</p>
+            </div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">8</span></div>
     </div>
@@ -443,10 +439,10 @@ ol li { margin-bottom: 8px; }
 <section class="page-wrapper" data-page="9">
     <div class="frame">
         <div class="content">
-            <h2 class="section">ذكرى الغالي… الأخ محمد علي الكريديس (أبو راكان)</h2>
-            <p>وإذ نخلد سيرة أخينا والمعلم الراحل فهد رحمه الله، لا يمكن أن ننسى شقيقه الغالي المرحوم بإذن الله <strong>محمد علي الكريديس (أبو راكان)</strong>، الذي انتقل إلى رحمة الله تاركاً خلفه أثراً طيباً وسيرة عطرة.</p>
-            <p>لقد كان أبو راكان صاحب خلق عظيم وسمعة طيبة، لم يكن يبتعد عن أخيه فهد في مناقب الخير، بل كان مثالاً للرجل الخدوم، المحب للجميع، والدائم الحرص على صلة الرحم وجمع القلوب على المحبة والصفاء.</p>
-            <p>وإن كان هذا الكتيّب مخصصاً لأثر فهد، فإن قلوبنا تظل تذكر كل الأوفياء من راحلينا. نسأل الله العلي القدير أن يغفر لوالدنا <strong>علي فهد الكريديس</strong>، ولأبي راكان ولأبي علي، وأن يسكنهم فسيح جناته، وأن يجعل قبورهم روضة من رياض الجنة، وأن يجمعنا بهم في مستقر رحمته.</p>
+            <h2 class="section">صاحب الأثر… والقلب النقي</h2>
+            <p>كان فهد رحمه الله بحرًا من النقاء، عُرف بدينه المتين وخلقه الرفيع، ومحافظته التامة على الصلاة في أوقاتها، فلم يكن يشغله عنها شاغل، حتى في أشد لحظات مرضه وتعبه، كانت الصلوات قرة عينه ورباط روحه.</p>
+            <p>عاش رحيمًا بالناس، لينًا في معاملته، مبتسمًا لا تفارق الابتسامة محياه مهما اشتدت الظروف. كان يسعى في قضاء حوائج المساكين والمحتاجين خفية، يرجو ما عند الله، ولا يبتغي سوى رضاه.</p>
+            <p class="bold gold center" style="font-size:18px;color:#b8860b;margin-top:10px;">رحمك الله يا أبا علي… يا من أودعت في قلوبنا طهر الأخلاق وعظم الأثر.</p>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">9</span></div>
     </div>
@@ -456,11 +452,10 @@ ol li { margin-bottom: 8px; }
 <section class="page-wrapper" data-page="10">
     <div class="frame">
         <div class="content">
-            <h2 class="section" style="font-size:21px;">سعادة المهندس ياسر… كلمة بقيت في الذاكرة</h2>
-            <p>ولأن أثر أخي المعلم الراحل فهد رحمه الله لم يكن محصورًا في طلابه أو في المدرسة، فقد امتد أثره إلى أسرته وأقاربه ومن حوله، وكان لي معه موقف شخصي بقي عالقًا في الذاكرة.</p>
-            <p>حين علم بنجاحي وحصولي على الدبلوم، حين كنت أحمل لقب «الفني» رسميًا، كان يناديني بكل فخر: «المهندس ياسر».</p>
-            <p>ثم جاء يوم تخرجي من مرحلة البكالوريوس، فازداد فخره بي، ولم يعد يكتفي بأن يناديني «المهندس ياسر»، بل كان يقولها بلهجة يملؤها الفخر والاعتزاز: «سعادة المهندس ياسر».</p>
-            <p class="bold gold center" style="font-size:18px;color:#b8860b;margin-top:10px;">رحمك الله يا فهد، فقد كنت تناديني بما أحب أن أكونه، وتفرح بي قبل أن أفرح بنفسي.</p>
+            <h2 class="section">ذكرى الغالي… الأخ محمد علي الكريديس (أبو راكان)</h2>
+            <p>وإذ نخلد سيرة أخينا والمعلم الراحل فهد رحمه الله، لا يمكن أن ننسى شقيقه الغالي المرحوم بإذن الله <strong>محمد علي الكريديس (أبو راكان)</strong>، الذي انتقل إلى رحمة الله تاركاً خلفه أثراً طيباً وسيرة عطرة.</p>
+            <p>لقد كان أبو راكان صاحب خلق عظيم وسمعة طيبة، لم يكن يبتعد عن أخيه فهد في مناقب الخير، بل كان مثالاً للرجل الخدوم، المحب للجميع، والدائم الحرص على صلة الرحم وجمع القلوب على المحبة والصفاء.</p>
+            <p>وإن كان هذا الكتيّب مخصصاً لأثر فهد، فإن قلوبنا تظل تذكر كل الأوفياء من راحلينا. نسأل الله العلي القدير أن يغفر لوالدنا <strong>علي فهد الكريديس</strong>، ولأبي راكان ولأبي علي، وأن يسكنهم فسيح جناته، وأن يجعل قبورهم روضة من رياض الجنة، وأن يجمعنا بهم في مستقر رحمته.</p>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">10</span></div>
     </div>
@@ -468,6 +463,20 @@ ol li { margin-bottom: 8px; }
 
 <!-- 11 -->
 <section class="page-wrapper" data-page="11">
+    <div class="frame">
+        <div class="content">
+            <h2 class="section" style="font-size:21px;">سعادة المهندس ياسر… كلمة بقيت في الذاكرة</h2>
+            <p>ولأن أثر أخي المعلم الراحل فهد رحمه الله لم يكن محصورًا في طلابه أو في المدرسة، فقد امتد أثره إلى أسرته وأقاربه ومن حوله، وكان لي معه موقف شخصي بقي عالقًا في الذاكرة.</p>
+            <p>حين علم بنجاحي وحصولي على الدبلوم، حين كنت أحمل لقب «الفني» رسميًا، كان يناديني بكل فخر: «المهندس ياسر».</p>
+            <p>ثم جاء يوم تخرجي من مرحلة البكالوريوس، فازداد فخره بي، ولم يعد يكتفي بأن يناديني «المهندس ياسر»، بل كان يقولها بلهجة يملؤها الفخر والاعتزاز: «سعادة المهندس ياسر».</p>
+            <p class="bold gold center" style="font-size:18px;color:#b8860b;margin-top:10px;">رحمك الله يا فهد، فقد كنت تناديني بما أحب أن أكونه، وتفرح بي قبل أن أفرح بنفسي.</p>
+        </div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">11</span></div>
+    </div>
+</section>
+
+<!-- 12 -->
+<section class="page-wrapper" data-page="12">
     <div class="frame">
         <div class="content">
             <h2 class="section">أوفياء الدرب… ورفاق المسيرة</h2>
@@ -503,12 +512,12 @@ ol li { margin-bottom: 8px; }
             </div>
             <p class="small" style="font-size:12px;margin-top:8px;color:#475569;text-align:center;">وهناك أناس كثر ممن رافقوا درب فقيدنا الغالي ولم يسعفنا الحصر لذكرهم، فلكل صديقٍ وفّيٍّ حفظ عهده ولم ينساها يوماً، جزاه الله عن وفائه خير الجزاء.</p>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">11</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">12</span></div>
     </div>
 </section>
 
-<!-- 12 -->
-<section class="page-wrapper" data-page="12">
+<!-- 13 -->
+<section class="page-wrapper" data-page="13">
     <div class="frame">
         <div class="content">
             <h2 class="section">محمد السيد نور الدين .. وفاءٌ يتجدد ويسبق الجميع</h2>
@@ -516,12 +525,12 @@ ol li { margin-bottom: 8px; }
             <p>عُرف المعلم الراحل المربي <strong>فهد الكريديس (أبو علي)</strong> رحمه اللّٰه، مع <strong>أبي عادل</strong> بطيب الصحبة وصدق الإخاء؛ إذ ضرب أبو عادل نموذجًا نادرًا في الوفاء والوقوف الصادق خلال فترة مرض فقيدنا الغالي أبي علي، فكان ينوب ويسعى بالخدمة والمساندة بكل محبة ورضاء.</p>
             <p>وما يثير الإجلال أن <strong>أبا عادل</strong> ما زال حريصًا على تقديم الخير وأوجه البر لأبي علي وكأن أبو علي ما زال حيًّا بيننا؛ فهو حتى يومنا هذا يتفقد الأسرة ويقوم على خدمة الوالدة الكريمة ورعايتها بكل إخلاص، مجسّدًا معنى الأخوة الحقيقية التي لا تقطعها الأيام ولا يغيبها الرحيل. فجزاه اللّٰه عنا وعن فقيدنا خير الجزاء.</p>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">12</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">13</span></div>
     </div>
 </section>
 
-<!-- 13: سجل الدورات (١) -->
-<section class="page-wrapper" data-page="13">
+<!-- 14: سجل الدورات (١) -->
+<section class="page-wrapper" data-page="14">
     <div class="frame">
         <div class="content">
             <h2 class="section center">سجل الدورات التدريبية (١)</h2>
@@ -546,12 +555,12 @@ ol li { margin-bottom: 8px; }
                 <tr><td class="center">١٦</td><td>كيف نواجه مشاكلنا الأسرية</td></tr>
             </table>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">13</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">14</span></div>
     </div>
 </section>
 
-<!-- 14: سجل الدورات (٢) -->
-<section class="page-wrapper" data-page="14">
+<!-- 15: سجل الدورات (٢) -->
+<section class="page-wrapper" data-page="15">
     <div class="frame">
         <div class="content">
             <h2 class="section center">سجل الدورات التدريبية (٢)</h2>
@@ -575,12 +584,12 @@ ol li { margin-bottom: 8px; }
                 <tr><td class="center">٣٢</td><td>Children Doodling</td></tr>
             </table>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">14</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">15</span></div>
     </div>
 </section>
 
-<!-- 15: سجل الدورات (٣) -->
-<section class="page-wrapper" data-page="15">
+<!-- 16: سجل الدورات (٣) -->
+<section class="page-wrapper" data-page="16">
     <div class="frame">
         <div class="content">
             <h2 class="section center">سجل الدورات التدريبية (٣)</h2>
@@ -604,12 +613,12 @@ ol li { margin-bottom: 8px; }
                 <tr><td class="center">٤٨</td><td>Human Rels.s Analysis (H.R.A.)</td></tr>
             </table>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">15</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">16</span></div>
     </div>
 </section>
 
-<!-- 16: سجل الدورات (٤) -->
-<section class="page-wrapper" data-page="16">
+<!-- 17: سجل الدورات (٤) -->
+<section class="page-wrapper" data-page="17">
     <div class="frame">
         <div class="content">
             <h2 class="section center">سجل الدورات التدريبية (٤)</h2>
@@ -633,12 +642,12 @@ ol li { margin-bottom: 8px; }
                 <tr><td class="center">٦٤</td><td>التقويم الصفي الواقعي</td></tr>
             </table>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">16</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">17</span></div>
     </div>
 </section>
 
-<!-- 17: سجل الدورات (٥) والتوثيق والعمق المعرفي -->
-<section class="page-wrapper" data-page="17">
+<!-- 18: سجل الدورات (٥) والمفكرين والمدربين -->
+<section class="page-wrapper" data-page="18">
     <div class="frame">
         <div class="content">
             <h2 class="section center">سجل الدورات التدريبية (٥)</h2>
@@ -655,16 +664,20 @@ ol li { margin-bottom: 8px; }
             <div style="background:#fffdf0; border:1px solid #d4af37; border-radius:8px; padding:10px 12px; margin-top:10px;">
                 <p style="font-size:13.5px; line-height:1.7; margin:0; text-align:justify; color:#1e3a8a;">
                     «ولأن الشغف بالعلم لا حدود له، فقد خاض فقيدنا الغالي المعلم الراحل فهد رحمه الله ما يقارب مئتي (200) دورة تدريبية حضرها وتفاعل معها خلال مسيرته الحافلة. وللأسف، لم نتمكن من حصر وتوثيق سوى سبعين (70) دورة فقط من بين أروقة أوراقه ومستنداته.<br><br>
-                    ولم تقتصر مسيرته على الحضور وتلقي المعرفة فحسب، بل امتدت لتقديم العديد من الدورات والبرامج التربوية والفكرية المتميزة. وفي ظل شغفه الدائم بالتطوير، كانت له علاقات وطيدة وممتدة مع كبار المفكرين والمدربين الأعلام، أمثال: <strong>الدكتور ميسره الطاهر</strong>، و<strong>الدكتور رشاد فقيه</strong>، والدكتور <strong>خالد المنيف</strong>؛ حيث كان يحضر دوراتهم بكثافة، مستلهمًا من فكرهم، ليقوم لاحقاً بتطوير برامجه التدريبية الخاصة وتقديمها إما بحضورهم الكريم أو متخذًا من طروحاتهم مرجعاً أساسياً لإثراء وتأصيل دوراته».
+                    ولم تقتصر مسيرته على الحضور وتلقي المعرفة فحسب، بل امتدت لتقديم العديد من الدورات والبرامج التربوية والفكرية المتميزة. وفي ظل شغفه الدائم بالتطوير، كانت له بصمة بحضورٍ مختلف وباهر لكبار المفكرين والمدربين الأعلام، أبرزهم:<br>
+                    • الدكتور/ <strong>ميسره طاهر</strong>.<br>
+                    • المؤلف والمدرب/ <strong>خالد المنيف</strong>.<br>
+                    • المستشار/ <strong>رشاد فقيها</strong>.<br>
+                    حيث كان يحضر دوراتهم بكثافة، مستلهمًا من فكرهم، ليقوم لاحقاً بتطوير برامجه التدريبية الخاصة وتقديمها إما بحضورهم الكريم أو متخذًا من طروحاتهم مرجعاً أساسياً لإثراء وتأصيل دوراته».
                 </p>
             </div>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">17</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">18</span></div>
     </div>
 </section>
 
-<!-- 18: مقدمة المذكرة الأصلية (بقلم فهد الكريديس) -->
-<section class="page-wrapper" data-page="18">
+<!-- 19: مقدمة المذكرة الأصلية (بقلم فهد الكريديس) -->
+<section class="page-wrapper" data-page="19">
     <div class="frame">
         <div class="content">
             <h2 class="section">مقدمة المذكرة الأصلية</h2>
@@ -674,12 +687,12 @@ ol li { margin-bottom: 8px; }
             <p>وقد حرصت فيها على أن تكون الأفكار قابلة للتطبيق، وأن تخدم المعلم والمتعلم معًا، وأن تسهم في بناء جيل يفكر قبل أن يجيب، ويتأمل قبل أن يحفظ.</p>
             <p>أسأل الله أن ينفع بها، وأن يجعلها خالصة لوجهه الكريم، وأن يكتب أجرها لكل من استفاد منها أو ساهم في نشرها.</p>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">18</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">19</span></div>
     </div>
 </section>
 
-<!-- 19 -->
-<section class="page-wrapper" data-page="19">
+<!-- 20 -->
+<section class="page-wrapper" data-page="20">
     <div class="frame">
         <div class="content">
             <h2 class="section center">بسم الله الرحمن الرحيم</h2>
@@ -692,12 +705,12 @@ ol li { margin-bottom: 8px; }
                 <li>تهيئة بعض الطلاب لمعرفة إصدار بعض المذكرات والوسائل التعليمية.</li>
             </ol>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">19</span></div>
+        <div class="footer"><span>مواهب و أفكار</span><span class="num">20</span></div>
     </div>
 </section>
 
-<!-- 20 -->
-<section class="page-wrapper" data-page="20">
+<!-- 21 -->
+<section class="page-wrapper" data-page="21">
     <div class="frame">
         <div class="content">
             <h2 class="section">أهم سمات التفكير</h2>
@@ -719,21 +732,6 @@ ol li { margin-bottom: 8px; }
                 <li>القصة العلمية.</li>
             </ol>
         </div>
-        <div class="footer"><span>مواهب و أفكار</span><span class="num">20</span></div>
-    </div>
-</section>
-
-<!-- 21 -->
-<section class="page-wrapper" data-page="21">
-    <div class="frame">
-        <div class="content">
-            <p class="bold" style="font-size:15px;color:#1e3a8a;">نبدأ بمشيئة الله تعالى مستعينين به سبحانه.</p>
-            <h2 class="section" style="margin-top:10px;">١- مهارة العصف الذهني</h2>
-            <p>هي وسيلة للحصول على أكبر عدد من الحلول، حتى لو لم تكن واقعية، وأيضًا عدم النقد أو الحكم على الأفكار.</p>
-            <p class="bold" style="font-size:14.5px; margin-top:12px;">مثال ١/ أعطِ عشرة (10) طرق للتخلص من التدخين:</p>
-            <div class="lines-large"><textarea id="ans_21_1" placeholder="اكتب الطرق العشر هنا بالتفصيل (محفوظ سحابياً)..."></textarea></div>
-            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_21_1'])">مسح وتفريغ الخانات 🗑️</button></div>
-        </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">21</span></div>
     </div>
 </section>
@@ -742,9 +740,11 @@ ol li { margin-bottom: 8px; }
 <section class="page-wrapper" data-page="22">
     <div class="frame">
         <div class="content">
-            <h2 class="section">تابع العصف الذهني</h2>
-            <p class="bold" style="font-size:14.5px; margin-top:8px;">مثال ٢/ أمامك نخلة، اكتب عشرين (20) فائدة تستطيع استخراجها من النخلة:</p>
-            <div class="lines-large" style="min-height:180px;"><textarea id="ans_22_1" placeholder="اكتب الفوائد والعشرين بنداً هنا بدقة وتفصيل..."></textarea></div>
+            <p class="bold" style="font-size:15px;color:#1e3a8a;">نبدأ بمشيئة الله تعالى مستعينين به سبحانه.</p>
+            <h2 class="section" style="margin-top:10px;">١- مهارة العصف الذهني</h2>
+            <p>هي وسيلة للحصول على أكبر عدد من الحلول، حتى لو لم تكن واقعية، وأيضًا عدم النقد أو الحكم على الأفكار.</p>
+            <p class="bold" style="font-size:14.5px; margin-top:12px;">مثال ١/ أعطِ عشرة (10) طرق للتخلص من التدخين:</p>
+            <div class="lines-large"><textarea id="ans_22_1" placeholder="اكتب الطرق العشر هنا بالتفصيل (محفوظ سحابياً)..."></textarea></div>
             <div><button class="clear-btn" onclick="window.clearPageFields(['ans_22_1'])">مسح وتفريغ الخانات 🗑️</button></div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">22</span></div>
@@ -755,13 +755,10 @@ ol li { margin-bottom: 8px; }
 <section class="page-wrapper" data-page="23">
     <div class="frame">
         <div class="content">
-            <h2 class="section">٢- مهارة (ماذا يحدث لو؟)</h2>
-            <p class="bold" style="font-size:14px; margin-bottom:8px;">تدريب ١/ ماذا يحدث لو انطفأت الكهرباء لمدة يوم عن مدينتك؟</p>
-            <div class="lines"><textarea id="ans_23_1" placeholder="اكتب إجابتك هنا..."></textarea></div>
-            <h2 class="section" style="margin-top:16px;">٣- مهارة: أقترح عنوانًا مرادفًا لهذا العنوان</h2>
-            <p class="bold" style="font-size:14px; margin-bottom:8px;">تدريب ١/ لماذا ندرس العلوم؟</p>
-            <div class="lines"><textarea id="ans_23_2" placeholder="اكتب العناوين المقترحة هنا..."></textarea></div>
-            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_23_1', 'ans_23_2'])">مسح وتفريغ الخانات 🗑️</button></div>
+            <h2 class="section">تابع العصف الذهني</h2>
+            <p class="bold" style="font-size:14.5px; margin-top:8px;">مثال ٢/ أمامك نخلة، اكتب عشرين (20) فائدة تستطيع استخراجها من النخلة:</p>
+            <div class="lines-large" style="min-height:180px;"><textarea id="ans_23_1" placeholder="اكتب الفوائد والعشرين بنداً هنا بدقة وتفصيل..."></textarea></div>
+            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_23_1'])">مسح وتفريغ الخانات 🗑️</button></div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">23</span></div>
     </div>
@@ -771,58 +768,49 @@ ol li { margin-bottom: 8px; }
 <section class="page-wrapper" data-page="24">
     <div class="frame">
         <div class="content">
-            <h2 class="section">الخرائط الذهنية</h2>
-            <p>تستخدم استراتيجية الخرائط الذهنية في حل المشكلات.</p>
-            <p class="bold" style="font-size:14px; margin-top:10px;">مثال ١/ طفلة مصابة بفقر الدم ولا تستطيع إلا شرب الماء:</p>
-            <div class="info-box center" style="padding:6px; margin-bottom:14px;">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                    <input type="text" id="ans_24_1" class="interactive-input" placeholder="الحل الأول..." style="margin:0">
-                    <input type="text" id="ans_24_2" class="interactive-input" placeholder="الحل الثاني..." style="margin:0">
-                </div>
-            </div>
-            <p class="bold" style="font-size:14px; margin-top:10px;">تدريب ٢/ فروع مادة العلوم:</p>
-            <div class="info-box center" style="padding:6px;">
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-                    <input type="text" id="ans_24_3" class="interactive-input" placeholder="الفرع 1" style="margin:0">
-                    <input type="text" id="ans_24_4" class="interactive-input" placeholder="الفرع 2" style="margin:0">
-                    <input type="text" id="ans_24_5" class="interactive-input" placeholder="الفرع 3" style="margin:0">
-                </div>
-            </div>
-            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_24_1', 'ans_24_2', 'ans_24_3', 'ans_24_4', 'ans_24_5'])">مسح وتفريغ الخانات 🗑️</button></div>
+            <h2 class="section">٢- مهارة (ماذا يحدث لو؟)</h2>
+            <p class="bold" style="font-size:14px; margin-bottom:8px;">تدريب ١/ ماذا يحدث لو انطفأت الكهرباء لمدة يوم عن مدينتك؟</p>
+            <div class="lines"><textarea id="ans_24_1" placeholder="اكتب إجابتك هنا..."></textarea></div>
+            <h2 class="section" style="margin-top:16px;">٣- مهارة: أقترح عنوانًا مرادفًا لهذا العنوان</h2>
+            <p class="bold" style="font-size:14px; margin-bottom:8px;">تدريب ١/ لماذا ندرس العلوم؟</p>
+            <div class="lines"><textarea id="ans_24_2" placeholder="اكتب العناوين المقترحة هنا..."></textarea></div>
+            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_24_1', 'ans_24_2'])">مسح وتفريغ الخانات 🗑️</button></div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">24</span></div>
     </div>
 </section>
 
-<!-- 25 -->
+<!-- 25: الخرائط الذهنية بالشرح الكامل -->
 <section class="page-wrapper" data-page="25">
     <div class="frame">
         <div class="content">
-            <h2 class="section">استراتيجية الخيال العلمي</h2>
-            <p>تساعد على اكتشاف العلوم.</p>
-            <p class="bold" style="font-size:14px; margin-top:8px; margin-bottom:8px;">تدريب ١/ هل تساعد في علاج مشكلة الفشل الكلوي؟</p>
-            <div class="lines"><textarea id="ans_25_1" placeholder="اكتب فكرتك العلمية هنا..."></textarea></div>
-            <p class="bold" style="font-size:14px; margin-top:14px; margin-bottom:8px;">أنشئ شكلًا جديدًا من خطين متوازيين (ارسم هنا بلمس الشاشة):</p>
-            <canvas class="drawing-canvas" id="drawCanvas"></canvas>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
-                <button class="clear-btn" onclick="window.clearCanvasDrawing()" style="background:#d97706;">مسح اللوحة وإعادة الرسم 🧹</button>
-                <button class="clear-btn" onclick="window.clearPageFields(['ans_25_1'])">مسح النص المكتوب 🗑️</button>
+            <h2 class="section">الخرائط الذهنية</h2>
+            <p style="font-size:13.5px; line-height:1.7;">تستخدم استراتيجية الخرائط الذهنية في حل المشكلات أو تثبيت الأفكار والمعلومات، وهي تشبه إلى حد ما الخلايا العصبية ابتكرها المفكر العالمي لوكي بوزان.<br>
+            يشترط في الخرائط الذهنية استخدام الخطوط المتعرجة والصور والرسوم والألوان لتساعد على التركيز.</p>
+            <p class="bold" style="font-size:13.5px; margin-top:6px;">مثال ١/ طفلة مصابة بفقر الدم (الأنيميا) ولا تستطيع الأكل ولا تقبله ولا تستطيع إلا الشرب (شرب الماء) فقط. باستخدام الخريطة الذهنية فكر في بعض الحلول التي توصل إلى علاجها بإذن الله:</p>
+            <div class="info-box center" style="padding:4px; margin-bottom:10px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                    <input type="text" id="ans_25_1" class="interactive-input" placeholder="الحل الأول..." style="margin:0; font-size:13px; padding:6px;">
+                    <input type="text" id="ans_25_2" class="interactive-input" placeholder="الحل الثاني..." style="margin:0; font-size:13px; padding:6px;">
+                </div>
             </div>
+            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_25_1', 'ans_25_2'])">مسح وتفريغ الخانات 🗑️</button></div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">25</span></div>
     </div>
 </section>
 
-<!-- 26 -->
+<!-- 26: مبادئ تريز الـ 5 التفصيلية (الجودة المكانية، التعشيش، الحيطة، القلب) -->
 <section class="page-wrapper" data-page="26">
     <div class="frame">
         <div class="content">
-            <h2 class="section">مهارة الكورت (توسعة الإدراك)</h2>
-            <p class="bold" style="font-size:14px; margin-bottom:8px;">مثال ١: قوانين وزارة البيئة للمحافظة على البيئة:</p>
-            <div class="lines"><textarea id="ans_26_1" placeholder="اكتب القوانين هنا..."></textarea></div>
-            <p class="bold" style="font-size:14px; margin-top:16px; margin-bottom:8px;">مثال ٢: أفكار للحد من الإضرار بالنبات:</p>
-            <div class="lines"><textarea id="ans_26_2" placeholder="اكتب الأفكار هنا..."></textarea></div>
-            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_26_1', 'ans_26_2'])">مسح وتفريغ الخانات 🗑️</button></div>
+            <h2 class="section" style="font-size:18px;">مبادئ تريز المتقدمة (الجودة، التعشيش، الحيطة، القلب)</h2>
+            <div style="font-size:13px; line-height:1.6; space-y:6px;">
+                <p><strong>٢- مبدأ الجودة المكانية (النوعية):</strong><br>استراتيجية هذا المبدأ تحسين نوعية الأداء في كل جزء من أجزاء النظام.<br>• مثال ١: أيسكريم + بسكويت.<br>• مثال ٢: قلم - دعاية - ليزر - الراديو.<br>• مثال ٣: معلم - خطاط - رسام - مدرب - مصلح اجتماعي.</p>
+                <p><strong>٣- مبدأ التعشيش (الاحتواء):</strong><br>استراتيجية هذا المبدأ احتواء شيء داخل شيء أو تمرير شيء داخل تجويف شيء آخر.<br>أمثلة: الكراسي داخل بعض، عربات التسوق داخل بعض، الشنط داخل بعض.</p>
+                <p><strong>٤- مبدأ الحيطة (المواجهة المسبقة للاختلالات):</strong><br>إذا كان النظام غير موثوق به قم مسبقاً بإيجاد ظروف تساعد على إلغاء الظروف السيئة في حالة حدوثها، وإيجاد خطط بديلة.<br>أمثلة: مولد كهربائي في المستشفيات، استخدام الإسفنج في المسرحيات، كاميرات المراقبة.</p>
+                <p><strong>٥- مبدأ القلب (العكس):</strong> يتضمن قلب الفكرة أو عكسها.<br>أمثلة: رسم الخرائط، توصيل الطلبات، سيور الجري.</p>
+            </div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">26</span></div>
     </div>
@@ -832,11 +820,16 @@ ol li { margin-bottom: 8px; }
 <section class="page-wrapper" data-page="27">
     <div class="frame">
         <div class="content">
-            <h2 class="section">القبعات الست</h2>
-            <p>لتنظيم التفكير واتخاذ القرار.</p>
-            <p class="bold" style="font-size:14px; margin-top:10px; margin-bottom:8px;">تدريب ١/ أسرة تريد قضاء إجازة في الرياض. ادرس القرار من خلال القبعات الست:</p>
-            <div class="lines-large" style="min-height:160px;"><textarea id="ans_27_1" placeholder="طبق القبعات الست هنا..."></textarea></div>
-            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_27_1'])">مسح وتفريغ الخانات 🗑️</button></div>
+            <h2 class="section">استراتيجية الخيال العلمي</h2>
+            <p>تساعد على اكتشاف العلوم.</p>
+            <p class="bold" style="font-size:14px; margin-top:8px; margin-bottom:8px;">تدريب ١/ هل تساعد في علاج مشكلة الفشل الكلوي؟</p>
+            <div class="lines"><textarea id="ans_27_1" placeholder="اكتب فكرتك العلمية هنا..."></textarea></div>
+            <p class="bold" style="font-size:14px; margin-top:14px; margin-bottom:8px;">أنشئ شكلًا جديدًا من خطين متوازيين (ارسم هنا بلمس الشاشة):</p>
+            <canvas class="drawing-canvas" id="drawCanvas"></canvas>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+                <button class="clear-btn" onclick="window.clearCanvasDrawing()" style="background:#d97706;">مسح اللوحة وإعادة الرسم 🧹</button>
+                <button class="clear-btn" onclick="window.clearPageFields(['ans_27_1'])">مسح النص المكتوب 🗑️</button>
+            </div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">27</span></div>
     </div>
@@ -846,57 +839,51 @@ ol li { margin-bottom: 8px; }
 <section class="page-wrapper" data-page="28">
     <div class="frame">
         <div class="content">
-            <h2 class="section">نظرية تريز للتفكير الإبداعي</h2>
-            <p class="center gold bold" style="font-size:17px;color:#b8860b;margin:8px 0;">«لا تحقرن صغيرةً إن الجبال من الحصى»</p>
-            <p style="margin-top:10px;">ما العلاقة بين هذا البيت ومبدأ التقسيم؟</p>
-            <div class="lines-large" style="min-height:160px;"><textarea id="ans_28_1" placeholder="اكتب تحليلك الإبداعي هنا..."></textarea></div>
-            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_28_1'])">مسح وتفريغ الخانات 🗑️</button></div>
+            <h2 class="section">مهارة الكورت (توسعة الإدراك)</h2>
+            <p class="bold" style="font-size:14px; margin-bottom:8px;">مثال ١: قوانين وزارة البيئة للمحافظة على البيئة:</p>
+            <div class="lines"><textarea id="ans_28_1" placeholder="اكتب القوانين هنا..."></textarea></div>
+            <p class="bold" style="font-size:14px; margin-top:16px; margin-bottom:8px;">مثال ٢: أفكار للحد من الإضرار بالنبات:</p>
+            <div class="lines"><textarea id="ans_28_2" placeholder="اكتب الأفكار هنا..."></textarea></div>
+            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_28_1', 'ans_28_2'])">مسح وتفريغ الخانات 🗑️</button></div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">28</span></div>
     </div>
 </section>
 
-<!-- 29: صفحة التأبين وترك الأثر -->
+<!-- 29: القبعات الست ونظرية تريز -->
 <section class="page-wrapper" data-page="29">
     <div class="frame">
-        <div class="content" style="display:flex; flex-direction:column; height:100%;">
-            <h2 class="section center" style="color:#1e3a8a;">💭 سجّل كلمتك.. أو دعاءك لفقيدنا الغالي</h2>
-            <p class="center" style="font-size:14.5px;">شاركنا دعاءً، أو موقفاً، أو كلمة وفاء بحق المعلم الراحل فهد علي الكريديس رحمه الله:</p>
-            <div style="margin-top:6px;">
-                <textarea id="tributeText" style="width:100%;height:70px;border:1.5px solid #cbd5e1;border-radius:6px;background:#fffdf9;padding:8px;font-family:inherit;font-size:14px;resize:none;" placeholder="اكتب دعاءً أو موقفاً جميلاً (المشاركة بدون اسم)..."></textarea>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px;flex-wrap:wrap;">
-                <select id="tributeType" style="padding:6px 10px;border-radius:6px;border:1.5px solid #cbd5e1;font-family:inherit;font-size:13.5px;">
-                    <option value="public">🌐 مشاركة عامة (تخضع لمراجعة الإدارة)</option>
-                    <option value="private">🔒 حفظ سري (خاص بي وحدي)</option>
-                </select>
-                <button class="action-btn" onclick="saveTribute()" style="margin:0; padding:6px 18px; font-size:14.5px;">اِجعل أثر فهد باقياً 🤍</button>
-            </div>
-            <div id="tributeMsg" style="color:#16a34a;font-size:13px;font-weight:bold;text-align:center;min-height:16px;margin-top:6px;"></div>
-            <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:8px;margin-top:10px;flex:1;overflow:hidden;display:flex;flex-direction:column;">
-                <div style="font-size:13.5px;font-weight:bold;color:#1e3a8a;margin-bottom:4px;border-bottom:1.5px solid #cbd5e1;padding-bottom:4px;">📜 سجل الوفاء والدعاء (مواقف ودعوات فقط):</div>
-                <div id="tributeList" style="flex:1;overflow-y:auto;font-size:13.5px;color:#475569;line-height:1.6;padding-top:4px;"></div>
-            </div>
+        <div class="content">
+            <h2 class="section" style="font-size:17px;">برنامج القبعات الست ونظرية تريز</h2>
+            <p style="font-size:12.5px; line-height:1.5;">هذا البرنامج للعالم الدكتور <strong>إدوارد دي بونو</strong> لتنظيم التفكير واتخاذ القرار. وهي ستة ألوان: البيضاء للمعلومات، الحمراء للمشاعر، الصفراء للإيجابيات، السوداء للسلبيات، الخضراء للأفكار، والزرقاء للسيطرة.</p>
+            <p style="font-size:12.5px; line-height:1.5; margin-top:6px;"><strong>١- مبدأ التقسيم (التجزيء):</strong> تقسيم الجسم إلى أجزاء مستقلة لسهولة الفك والتركيب والاقتصاد في الوقت والمال (مثل عبوات السكر وبطاقات سوا).</p>
+            <p class="center gold bold" style="font-size:13.5px;color:#b8860b;margin:4px 0;">«لا تحقرن صغيرةً إن الجبال من الحصى»</p>
+            <div class="lines-large" style="min-height:75px;"><textarea id="ans_29_1" placeholder="اكتب تحليلك الإبداعي هنا..."></textarea></div>
+            <div><button class="clear-btn" onclick="window.clearPageFields(['ans_29_1'])">مسح وتفريغ الخانات 🗑️</button></div>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">29</span></div>
     </div>
 </section>
 
-<!-- 30: الخاتمة -->
+<!-- 30: الخاتمة المدمجة بالبوكس والنص العميق -->
 <section class="page-wrapper" data-page="30">
     <div class="frame">
-        <div class="content centered">
-            <div style="background:#ecfdf5;border:2px solid #10b981;border-radius:12px;padding:16px;margin-bottom:14px;width:100%;text-align:center;">
-                <h3 style="color:#047857;margin:0 0 6px 0;font-size:20px;">🎉 أحسنت! أتممت قراءة الكتاب</h3>
-                <p style="margin:0;color:#065f46;font-size:14px;">شكراً لوفائك واطلاعك على إرث المعلم الراحل فهد علي الكريديس رحمه الله.</p>
+        <div class="content">
+            <div style="background:#ecfdf5;border:2px solid #10b981;border-radius:12px;padding:10px;margin-bottom:10px;width:100%;text-align:center;">
+                <h3 style="color:#047857;margin:0 0 2px 0;font-size:17px;">🎉 أحسنت! أتممت قراءة الكتاب</h3>
+                <p style="margin:0;color:#065f46;font-size:12.5px;">شكراً لوفائك واطلاعك على إرث المعلم الراحل فهد علي الكريديس رحمه الله.</p>
             </div>
-            <h1 style="font-size:28px;color:#1e3a8a;margin-top:5px;">الخاتمة</h1>
-            <p style="font-size:15px;line-height:1.8;">وفي ختام هذا الكتيّب، تقف الكلمات عاجزة عن الإحاطة بسيرة معطاءة كرّس صاحبها حياته للعلم والتربية. فلم تكن رحلة المعلم الراحل فهد علي الكريديس رحمه الله مجرد أعوام تقضى في قاعات الدرس، بل كانت ملحمة إخلاصٍ وعطاءٍ مستمر؛ إذ خاض ما يقارب مئتي (200) دورة تدريبية، وأصبح مدرباً معتمداً من جامعة الملك عبد العزيز، بحثاً عن المعرفة ليُعلّمها، وبذل زهرة شبابه وسنين عمره ليزرع الأثر في نفوس طلابه وكل من عرفه.</p>
-            <p style="font-size:15px;line-height:1.8;">لقد رحل فهد الجسد، وبقي غرسُه الطيب؛ علماً يُنتفع به، وذكراً عاطراً، وصدقة جارية تلاحقه في مرقده لا ينقطع أجرها إلى يوم الدين.</p>
-            <div class="quote" style="margin-top:8px;padding:12px;">
-                <strong class="gold" style="font-size:17px;color:#b8860b;">المعلم الراحل فهد علي الكريديس…</strong>
-                <p class="center bold" style="font-size:14.5px;margin-top:4px;">رجلٌ آمن بالعلم، فتعلّمه ثم علّمه، وآمن بالإنسان، فترك فيه أثرًا. رحمك الله يا أبا علي، وجعل كل حرف خطّته يداك وكل علمٍ نشرته في ميزان حسناتك، وأسكنك الفردوس الأعلى بلا حساب ولا سابق عذاب.</p>
+            
+            <h1 class="center" style="font-size:24px;color:#1e3a8a;margin-top:2px;">الخاتمة</h1>
+            
+            <div class="quote" style="background:#fff7df;border:1.5px solid #d4af37;border-radius:10px;padding:10px 14px;margin-bottom:10px;text-align:center;">
+                <strong class="gold" style="font-size:16px;color:#b8860b;">المعلم الراحل فهد علي الكريديس…</strong>
+                <p class="bold" style="font-size:14px;margin-top:4px;color:#1e293b;text-align:center;">رجلٌ آمن بالعلم، فتعلّمه ثم علّمه، وآمن بالإنسان، فترك فيه أثرًا.</p>
             </div>
+
+            <p style="font-size:13.5px;line-height:1.8;margin-bottom:10px;">وفي ختام هذا الكتيّب، تقف الكلمات عاجزة عن الإحاطة بسيرة معطاءة كرّس صاحبها حياته للعلم والتربية. فلم تكن رحلة المعلم الراحل فهد علي الكريديس رحمه الله مجرد أعوام تقضى في قاعات الدرس، بل كانت ملحمة إخلاصٍ وعطاءٍ مستمر؛ إذ خاض ما يقارب مئتي (200) دورة تدريبية، وأصبح مدرباً معتمداً من جامعة الملك عبد العزيز، بحثاً عن المعرفة ليُعلّمها، وبذل زهرة شبابه وسنين عمره ليزرع الأثر في نفوس طلابه وكل من عرفه.</p>
+            <p style="font-size:13.5px;line-height:1.8;margin-bottom:10px;">لقد رحل فهد الجسد، وبقي غرسُه الطيب؛ علماً يُنتفع به، وذكراً عاطراً، وصدقة جارية تلاحقه في مرقده لا ينقطع أجرها إلى يوم الدين.</p>
+            <p style="font-size:13.5px;line-height:1.8;margin-bottom:0;">رحمك الله يا أبا علي، وجعل كل حرف خطّته يداك وكل علمٍ نشرته في ميزان حسناتك، وأسكنك الفردوس الأعلى بلا حساب ولا سابق عذاب.</p>
         </div>
         <div class="footer"><span>مواهب و أفكار</span><span class="num">30</span></div>
     </div>
@@ -912,7 +899,7 @@ ol li { margin-bottom: 8px; }
     <button class="nav-btn" onclick="nextPage()">التالي ◀</button>
 </div>
 
-<!-- نافذة تسجيل الدخول المحلية المضمونة 100% -->
+<!-- نافذة تسجيل الدخول للإدارة -->
 <div class="modal-overlay" id="adminLoginModal">
     <div class="modal-box">
         <h3>🔐 تسجيل دخول الإدارة</h3>
@@ -929,7 +916,7 @@ ol li { margin-bottom: 8px; }
     </div>
 </div>
 
-<!-- نافذة لوحة تحكم الإدارة (مراجعة التعليقات) -->
+<!-- نافذة لوحة تحكم الإدارة -->
 <div class="modal-overlay" id="adminDashboardModal">
     <div class="modal-box" style="max-width:650px; max-height:85vh; display:flex; flex-direction:column;">
         <h3>🛡️ لوحة تحكم إدارة التعليقات</h3>
@@ -941,7 +928,6 @@ ol li { margin-bottom: 8px; }
     </div>
 </div>
 
-<!-- مكتبات فايربيس الخاصة بمزامنة العدادات والتعليقات -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
@@ -1015,7 +1001,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     } catch(err) {}
 
-    syncCloudTributes();
     loadAllSavedAnswers();
 });
 
@@ -1047,98 +1032,6 @@ window.saveAnswerToCloud = async function(fieldId, value) {
         await setDoc(userAnswersRef, { value: value, updatedAt: new Date().toISOString() }, { merge: true });
     } catch(e){}
 };
-
-const forbiddenWords = [
-    "كلب", "حقير", "حيوان", "حمار", "غبي", "غبية", "تافه", "وسخ", "منحط", 
-    "سافل", "سافلة", "سب", "شتم", "قذر", "قذارة", "زفت", "يا كلب", "يا حمار"
-];
-
-function normalizeArabicText(text) {
-    if (!text) return "";
-    return text.replace(/[\u064B-\u065F]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/(.)\1+/g, '$1').toLowerCase().trim();
-}
-
-function containsProfanity(text) {
-    const cleanInput = normalizeArabicText(text);
-    return forbiddenWords.some(word => cleanInput.includes(normalizeArabicText(word)));
-}
-
-window.saveTributeToCloud = async function(text, type) {
-    let msg = document.getElementById('tributeMsg');
-    
-    if (containsProfanity(text)) {
-        if(msg) {
-            msg.style.color = '#dc2626';
-            msg.innerText = "⚠️ نعتذر، يحتوي النص على كلمات غير لائقة ولن يتم نشرها احتراماً لمقام فقيدنا الغالي.";
-        }
-        return;
-    }
-
-    if (type === 'public') {
-        try {
-            const tributesCol = collection(db, 'artifacts', appId, 'public', 'data', 'community_tributes');
-            await addDoc(tributesCol, {
-                text: text,
-                date: new Date().toLocaleDateString('ar-SA'),
-                createdAt: new Date().toISOString(),
-                approved: false 
-            });
-            if(msg) {
-                msg.style.color = '#16a34a';
-                msg.innerText = "✨ تم إرسال مشاركتك بنجاح وهي الآن قيد المراجعة لدى إدارة الكتاب.";
-            }
-            syncCloudTributes();
-        } catch(e) {
-            if(msg) {
-                msg.style.color = '#dc2626';
-                msg.innerText = "حدث خطأ أثناء الإرسال، حاول مجدداً.";
-            }
-        }
-    } else {
-        let tributes = JSON.parse(localStorage.getItem('fahad_book_private_tributes') || '[]');
-        tributes.unshift({ text: text, date: new Date().toLocaleDateString('ar-SA') });
-        localStorage.setItem('fahad_book_private_tributes', JSON.stringify(tributes));
-        if(msg) {
-            msg.style.color = '#2563eb';
-            msg.innerText = "🔒 تم حفظ رسالتك السرية محلياً بنجاح.";
-        }
-        loadTributes();
-    }
-};
-
-window.syncCloudTributes = function() {
-    try {
-        const tributesCol = collection(db, 'artifacts', appId, 'public', 'data', 'community_tributes');
-        onSnapshot(tributesCol, (snapshot) => {
-            window.allCloudTributes = [];
-            snapshot.forEach(docSnap => {
-                let data = docSnap.data();
-                window.allCloudTributes.push({ id: docSnap.id, ...data });
-            });
-            window.allCloudTributes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            loadTributes();
-            if(window.isAdminLoggedIn) {
-                renderAdminPendingList();
-            }
-        });
-    } catch(e) {}
-};
-
-window.approveTribute = async function(id) {
-    try {
-        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'community_tributes', id);
-        await updateDoc(docRef, { approved: true });
-        syncCloudTributes();
-    } catch(e) {}
-};
-
-window.deleteTribute = async function(id) {
-    try {
-        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'community_tributes', id);
-        await deleteDoc(docRef);
-        syncCloudTributes();
-    } catch(e) {}
-};
 </script>
 
 <script>
@@ -1155,7 +1048,7 @@ function showPage(page) {
     const activeEl = document.querySelector(`.page-wrapper[data-page="${currentPage}"]`);
     if (activeEl) {
         activeEl.classList.add('active');
-        if (currentPage === 25) setTimeout(resizeCanvas, 50);
+        if (currentPage === 27) setTimeout(resizeCanvas, 50);
         if (currentPage === 30 && window.markBookAsCompleted) window.markBookAsCompleted();
     }
 
@@ -1175,7 +1068,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     loadAllSavedAnswers();
-    loadTributes();
     setupPointerCanvas();
     setupAutoSave();
 });
@@ -1236,108 +1128,16 @@ function loadAllSavedAnswers() {
     }
 }
 
-window.exportMyAnswers = function() {
-    let fields = document.querySelectorAll('textarea, input.interactive-input');
-    let data = {};
-    fields.forEach(f => {
-        if (f.id && f.value) data[f.id] = f.value;
-    });
-    
-    const canvas = document.getElementById('drawCanvas');
-    if (canvas) data['drawing_canvas_data'] = canvas.toDataURL();
-    
-    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-    let dlAnchorElem = document.createElement('a');
-    dlAnchorElem.setAttribute("href", dataStr);
-    dlAnchorElem.setAttribute("download", `Fahad_Book_Answers.json`);
-    document.body.appendChild(dlAnchorElem);
-    dlAnchorElem.click();
-    dlAnchorElem.remove();
-};
-
-window.saveTribute = function() {
-    let textElem = document.getElementById('tributeText');
-    let typeElem = document.getElementById('tributeType');
-    let msg = document.getElementById('tributeMsg');
-
-    if(!textElem || !textElem.value.trim()) {
-        if(msg) {
-            msg.style.color = '#dc2626';
-            msg.innerHTML = "الرجاء كتابة دعاء أو كلمة أولاً.";
-        }
-        return;
-    }
-
-    let text = textElem.value.trim();
-    let type = typeElem ? typeElem.value : 'public';
-
-    if(window.saveTributeToCloud) {
-        window.saveTributeToCloud(text, type);
-    }
-    
-    textElem.value = "";
-    setTimeout(() => { if(msg) msg.innerHTML = ""; }, 3500);
-};
-
-function loadTributes() {
-    let list = document.getElementById('tributeList');
-    if (!list) return;
-    list.innerHTML = "";
-    
-    let allCloud = window.allCloudTributes || [];
-    let publicApproved = allCloud.filter(t => t.approved === true);
-    let privateTributes = JSON.parse(localStorage.getItem('fahad_book_private_tributes') || '[]');
-    
-    let allTributes = [
-        ...publicApproved.map(t => ({...t, badge: '🌐 عام'})),
-        ...privateTributes.map(t => ({...t, badge: '🔒 سري'}))
-    ];
-
-    if (allTributes.length === 0) {
-        list.innerHTML = "<div style='text-align:center; color:#94a3b8; margin-top:10px;'>لا يوجد أثر مسجل بعد. كن أول من يكتب دعاءً أو كلمة وفاء.</div>";
-        return;
-    }
-
-    allTributes.forEach(t => {
-        let p = document.createElement('div');
-        p.style.background = "#fff";
-        p.style.border = "1px solid #e2e8f0";
-        p.style.padding = "8px";
-        p.style.borderRadius = "6px";
-        p.style.marginBottom = "8px";
-        
-        let header = document.createElement('div');
-        header.style.fontSize = "11px";
-        header.style.color = "#64748b";
-        header.style.marginBottom = "4px";
-        header.innerHTML = `<b>${t.badge}</b> - ${t.date || ''}`;
-        
-        let body = document.createElement('div');
-        body.style.color = "#1e293b";
-        body.style.fontSize = "13.5px";
-        body.style.lineHeight = "1.6";
-        body.textContent = t.text;
-
-        p.appendChild(header);
-        p.appendChild(body);
-        list.appendChild(p);
-    });
-}
-
-// التحكم المحلي المباشر والمضمون 100% دون أخطاء خارجية
 window.isAdminLoggedIn = false;
-
 window.openAdminLoginModal = function() {
     document.getElementById('adminUser').value = "";
     document.getElementById('adminPass').value = "";
     document.getElementById('loginErrorMsg').innerText = "";
     document.getElementById('adminLoginModal').style.display = 'flex';
 };
-
 window.closeAdminLoginModal = function() {
     document.getElementById('adminLoginModal').style.display = 'none';
 };
-
 window.verifyAdminLogin = function() {
     let u = document.getElementById('adminUser').value.trim();
     let p = document.getElementById('adminPass').value.trim();
@@ -1348,66 +1148,15 @@ window.verifyAdminLogin = function() {
         closeAdminLoginModal();
         openAdminDashboard();
     } else {
-        err.innerText = "⚠️ خطأ في اسم المستخدم أو كلمة المرور! هذه الصفحة خاصة تحت إدارة وإشراف (سعادة المهندس ياسر الكريديس).";
+        err.innerText = "⚠️ خطأ في اسم المستخدم أو كلمة المرور!";
     }
 };
-
 window.openAdminDashboard = function() {
     document.getElementById('adminDashboardModal').style.display = 'flex';
-    renderAdminPendingList();
 };
-
 window.closeAdminDashboard = function() {
     document.getElementById('adminDashboardModal').style.display = 'none';
 };
-
-function renderAdminPendingList() {
-    let container = document.getElementById('adminPendingList');
-    if(!container) return;
-    container.innerHTML = "";
-
-    let allCloud = window.allCloudTributes || [];
-    let pendingList = allCloud.filter(t => t.approved !== true);
-
-    if (pendingList.length === 0) {
-        container.innerHTML = "<div style='text-align:center; color:#64748b; padding:20px;'>لا توجد تعليقات جديدة تنتظر الموافقة حالياً.</div>";
-        return;
-    }
-
-    pendingList.forEach(t => {
-        let box = document.createElement('div');
-        box.style.cssText = "background:#fff; border:1px solid #cbd5e1; border-radius:6px; padding:10px; margin-bottom:10px;";
-        
-        let info = document.createElement('div');
-        info.style.cssText = "font-size:11.5px; color:#64748b; margin-bottom:4px;";
-        info.innerText = `التاريخ: ${t.date || ''}`;
-
-        let txt = document.createElement('div');
-        txt.style.cssText = "font-size:14px; color:#1e293b; margin-bottom:10px; line-height:1.6;";
-        txt.textContent = t.text;
-
-        let actions = document.createElement('div');
-        actions.style.cssText = "display:flex; gap:8px;";
-
-        let approveBtn = document.createElement('button');
-        approveBtn.style.cssText = "background:#16a34a; color:#fff; border:none; padding:5px 14px; border-radius:4px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13px;";
-        approveBtn.innerText = "✅ موافقة ونشر";
-        approveBtn.onclick = () => window.approveTribute(t.id);
-
-        let rejectBtn = document.createElement('button');
-        rejectBtn.style.cssText = "background:#dc2626; color:#fff; border:none; padding:5px 14px; border-radius:4px; cursor:pointer; font-family:inherit; font-weight:bold; font-size:13px;";
-        rejectBtn.innerText = "❌ رفض وحذف";
-        rejectBtn.onclick = () => window.deleteTribute(t.id);
-
-        actions.appendChild(approveBtn);
-        actions.appendChild(rejectBtn);
-
-        box.appendChild(info);
-        box.appendChild(txt);
-        box.appendChild(actions);
-        container.appendChild(box);
-    });
-}
 
 function setupPointerCanvas() {
     const canvas = document.getElementById('drawCanvas');
@@ -1478,3 +1227,4 @@ document.addEventListener('keydown', (e) => {
 
 </body>
 </html>
+
