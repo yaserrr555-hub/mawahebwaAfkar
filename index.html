@@ -1464,16 +1464,15 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') nextPage();
 });
     // دالة تكبير وتصغير الخط لصفحات الكتاب فقط دون المساس بالتصميم العام
+// دالة تكبير وتصغير الخط وتأثيرها على الكتاب وسجل الوفاء
 function changeFontSize(direction) {
-  // استهداف جميع عناصر الصفحات والنصوص داخل الكتاب
-  const elements = document.querySelectorAll('.page-wrapper, .page-wrapper p, .page-wrapper span, .page-wrapper h2, .page-wrapper h3, .page-wrapper li, textarea, input, .comment-box, .content-box');
+    const elements = document.querySelectorAll('.page-wrapper, .page-wrapper p, .page-wrapper span, .page-wrapper h2, .page-wrapper h3, .page-wrapper li, textarea, input, div#tributeList, div#tributeList *');
     
     elements.forEach(el => {
         let computedStyle = window.getComputedStyle(el);
         let currentSize = parseFloat(computedStyle.fontSize);
         if (currentSize) {
             let newSize = currentSize + direction;
-            // وضع حدود أمان لكي لا يتخطى أحجام مقبولة
             if (newSize >= 12 && newSize <= 28) {
                 el.style.fontSize = newSize + 'px';
             }
