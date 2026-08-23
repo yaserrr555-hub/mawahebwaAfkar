@@ -280,7 +280,11 @@ ol li { margin-bottom: 8px; }
 <div class="admin-top-bar">
     <button class="admin-trigger-btn" onclick="openAdminLoginModal()">⚙️ إدارة الكتاب</button>
 </div>
-
+<div style="width: 95vw; max-width: 880px; margin: 0 auto 10px auto; display: flex; gap: 10px; align-items: center; justify-content: flex-end;">
+  <span style="font-size: 13px; color: #aaa;">حجم الخط:</span>
+  <button onclick="changeFontSize(2)" style="padding: 4px 10px; cursor: pointer; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff; font-size: 13px;">A+</button>
+  <button onclick="changeFontSize(-2)" style="padding: 4px 10px; cursor: pointer; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff; font-size: 13px;">A-</button>
+</div>
 <div class="book-container">
 
 <!-- 1: الغلاف -->
@@ -1459,6 +1463,23 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') prevPage();
     if (e.key === 'ArrowLeft') nextPage();
 });
+    // دالة تكبير وتصغير الخط لصفحات الكتاب فقط دون المساس بالتصميم العام
+function changeFontSize(direction) {
+  // استهداف جميع عناصر الصفحات والنصوص داخل الكتاب
+  const pages = document.querySelectorAll('.page-wrapper, .page-wrapper p, .page-wrapper span, .cover-card, .frame');
+  
+  pages.forEach(el => {
+    let computedStyle = window.getComputedStyle(el);
+    let currentSize = parseFloat(computedStyle.fontSize);
+    if (currentSize) {
+      let newSize = currentSize + direction;
+      // وضع حدود أمان لكي لا يتخطى أحجام معقولة
+      if (newSize >= 12 && newSize <= 28) {
+        el.style.fontSize = newSize + 'px';
+      }
+    }
+  });
+}
 </script>
 
 </body>
