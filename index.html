@@ -1466,19 +1466,19 @@ document.addEventListener('keydown', (e) => {
     // دالة تكبير وتصغير الخط لصفحات الكتاب فقط دون المساس بالتصميم العام
 function changeFontSize(direction) {
   // استهداف جميع عناصر الصفحات والنصوص داخل الكتاب
-  const pages = document.querySelectorAll('.page-wrapper, .page-wrapper p, .page-wrapper span, .cover-card, .frame');
-  
-  pages.forEach(el => {
-    let computedStyle = window.getComputedStyle(el);
-    let currentSize = parseFloat(computedStyle.fontSize);
-    if (currentSize) {
-      let newSize = currentSize + direction;
-      // وضع حدود أمان لكي لا يتخطى أحجام معقولة
-      if (newSize >= 12 && newSize <= 28) {
-        el.style.fontSize = newSize + 'px';
-      }
-    }
-  });
+  const elements = document.querySelectorAll('.page-wrapper, .page-wrapper p, .page-wrapper span, .page-wrapper h2, .page-wrapper h3, .page-wrapper li, textarea, input, .comment-box, .content-box');
+    
+    elements.forEach(el => {
+        let computedStyle = window.getComputedStyle(el);
+        let currentSize = parseFloat(computedStyle.fontSize);
+        if (currentSize) {
+            let newSize = currentSize + direction;
+            // وضع حدود أمان لكي لا يتخطى أحجام مقبولة
+            if (newSize >= 12 && newSize <= 28) {
+                el.style.fontSize = newSize + 'px';
+            }
+        }
+    });
 }
 </script>
 
